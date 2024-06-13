@@ -55,7 +55,36 @@ class CustomerResource extends Resource
                             ->options(User::where('role_id', Role::where('name', 'Employee')->first()->id)->pluck('name', 'id'))
                     ])
                     ->hidden(!auth()->user()->isAdmin()),
-                Forms\Components\Section::make('Customer Details')->label('Dettagli Cliente')
+
+                Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live(),
+
+                Forms\Components\Section::make('Dettagli Azienda')->label('Dettagli Azienda')
+                ->schema([
+                    Forms\Components\TextInput::make('nome_az')->label('Nome Azienda'),
+                    Forms\Components\TextInput::make('rag_sociale')->label('Ragione Sociale'),
+                    Forms\Components\TextInput::make('cf_azienda')->label('Codice Fiscale'),
+                    Forms\Components\TextInput::make('piva')->label('Partita IVA'),
+                    Forms\Components\TextInput::make('email_az')->label('Email'),
+                    Forms\Components\TextInput::make('tel_az')->label('Telefono'),
+                    Forms\Components\TextInput::make('website')->label('Sito Web'),
+                    Forms\Components\Section::make('Indirizzo Azienda')->schema([
+                        Forms\Components\TextInput::make('stato_az')->label('Nazione'),
+                        Forms\Components\TextInput::make('prov_az')->label('Provincia'),
+                        Forms\Components\TextInput::make('citta_az')->label('Città'),
+                        Forms\Components\TextInput::make('cap_az')->label('CAP'),
+                        Forms\Components\TextInput::make('via_az')->label('Via'),
+                    ]),
+                    Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
+
+
+
+
+                ])
+                ->columns()
+                ->hidden(fn (Get $get): bool => !$get('is_azienda')),
+
+
+                Forms\Components\Section::make('Dettagli Contatto')->label('Dettagli Contatto')
                     ->schema([
                         Forms\Components\TextInput::make('first_name')->label('Nome')
                             ->maxLength(255),
@@ -66,12 +95,26 @@ class CustomerResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone_number')->label('Telefono')
                             ->maxLength(255),
+                        Forms\Components\Section::make('Informazioni Residenza')->schema([
+                            Forms\Components\TextInput::make('stato_r')->label('Nazione Residenza'),
+                            Forms\Components\TextInput::make('prov_r')->label('Provincia Residenza'),
+                            Forms\Components\TextInput::make('citta_r')->label('Città Residenza'),
+                            Forms\Components\TextInput::make('cap_r')->label('CAP Residenza'),
+                            Forms\Components\TextInput::make('via_r')->label('Via Residenza'),
+                        ]),
+                        Forms\Components\Section::make('Informazioni Consegna')->schema([
+                            Forms\Components\TextInput::make('stato_c')->label('Nazione Spedizione'),
+                            Forms\Components\TextInput::make('prov_c')->label('Provincia Spedizione'),
+                            Forms\Components\TextInput::make('citta_c')->label('Città Spedizione'),
+                            Forms\Components\TextInput::make('cap_c')->label('CAP Spedizione'),
+                            Forms\Components\TextInput::make('via_c')->label('Via Spedizione'),
+                        ]),
                         Forms\Components\Textarea::make('description')->label('Descrizione')
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ])
                     ->columns(),
-                Forms\Components\Section::make('Lead Details')->label('Dettagli Lead')
+                Forms\Components\Section::make('Dettagli Lead')->label('Dettagli Lead')
                     ->schema([
                         Forms\Components\Select::make('lead_source_id')->label('Fonte Lead')
                             ->relationship('leadSource', 'name'),
@@ -85,7 +128,7 @@ class CustomerResource extends Resource
                             ->default(PipelineStage::where('is_default', true)->first()?->id)
                     ])
                     ->columns(3),
-                Forms\Components\Section::make('Documents')->label('Documenti')
+                Forms\Components\Section::make('Documenti')->label('Documenti')
                     // This will make the section visible only on the edit page
                     ->visibleOn('edit')
                     ->schema([
@@ -101,7 +144,7 @@ class CustomerResource extends Resource
                             ])
                             ->columns()
                     ]),
-                Forms\Components\Section::make('Additional fields')->label('Campi Extra')
+                Forms\Components\Section::make('Campi Extra')->label('Campi Extra')
                     ->schema([
                         Forms\Components\Repeater::make('fields')->label('Extra')
                             ->hiddenLabel()
