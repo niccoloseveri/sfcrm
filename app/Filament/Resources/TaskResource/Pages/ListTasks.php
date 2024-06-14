@@ -30,10 +30,10 @@ class ListTasks extends ListRecords
                     return $query->where('user_id', auth()->id());
                 });
         }
-
+        if (auth()->user()->isAdmin()) {
         $tabs[] = Tab::make('Tutti i Tasks')
             ->badge(Task::count());
-
+        }
         $tabs[] = Tab::make('Completati')
             ->badge(Task::where('is_completed', true)->count())
             ->modifyQueryUsing(function ($query) {
