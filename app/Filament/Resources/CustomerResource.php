@@ -452,7 +452,7 @@ class CustomerResource extends Resource
                 SoftDeletingScope::class,
             ]);
         } else
-        return parent::getEloquentQuery()->whereRelation('employee','employee_id', '!', null )
+        return parent::getEloquentQuery()->whereRelation('employee','employee_id', '=', auth()->user()->id )
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
