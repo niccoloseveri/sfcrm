@@ -26,7 +26,7 @@ jobs:
         git checkout -B deploy
         git add -f public/
         git add package-lock.json
-        git commit -m "Build front-end assets"
+        git commit -a -m "Build front-end assets"
         git push -f origin deploy
     - name: Deploy to production
       uses: appleboy/ssh-action@master
