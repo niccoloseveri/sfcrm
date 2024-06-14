@@ -442,7 +442,7 @@ class CustomerResource extends Resource
         if(auth()->user()->isAdmin()){
             return parent::getEloquentQuery()
             ->withoutGlobalScopes([
-                SoftDeletingScope::class,
+                //SoftDeletingScope::class,
             ]);
         } else
         return parent::getEloquentQuery()->whereRelation('employee','employee_id', '!', null )
