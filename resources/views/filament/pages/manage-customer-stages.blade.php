@@ -5,7 +5,7 @@
                 @foreach ($statuses as $status)
                     <div class="h-full flex-1">
                         <div class="bg-primary-200 rounded px-2 flex flex-col h-full" id="{{ $status['id'] }}">
-                            <div class="p-2 text-sm text-gray-900 mb-2">
+                            <div class="p-2 text-sm text-gray-900 mb-2 text-center">
                                 {{ $status['title'] }}
                             </div>
                             <div id="{{ $status['kanbanRecordsId'] }}" data-status-id="{{ $status['id'] }}"
