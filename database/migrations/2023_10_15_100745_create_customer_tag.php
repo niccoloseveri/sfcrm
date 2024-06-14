@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('customer_tag', function (Blueprint $table) {
-            $table->foreignIdFor(Customer::class)->constrained();
-            $table->foreignIdFor(Tag::class)->constrained();
+            $table->foreignIdFor(Customer::class);
+            $table->foreignIdFor(Tag::class);
         });
     }
 

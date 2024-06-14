@@ -16,9 +16,9 @@ return new class extends Migration
     {
         Schema::create('customer_pipeline_stages', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Customer::class)->constrained();
-            $table->foreignIdFor(PipelineStage::class)->nullable()->constrained();
-            $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->foreignIdFor(Customer::class);
+            $table->foreignIdFor(PipelineStage::class)->nullable();
+            $table->foreignIdFor(User::class)->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

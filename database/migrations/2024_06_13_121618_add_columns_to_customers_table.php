@@ -42,7 +42,7 @@ return new class extends Migration
             $table->string('cap_c')->nullable()->after('via_c');
             $table->string('stato_c')->nullable()->after('cap_c');
             $table->longText('altreinfo')->nullable()->after('stato_c');
-            $table->foreignId('settore_id')->after('altreinfo');
+            $table->foreignId('settore_id')->nullable()->after('altreinfo');
         });
     }
 

@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('custom_field_customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Customer::class)->constrained();
-            $table->foreignIdFor(CustomField::class)->constrained();
+            $table->foreignIdFor(Customer::class);
+            $table->foreignIdFor(CustomField::class);
             $table->string('value');
             $table->timestamps();
         });

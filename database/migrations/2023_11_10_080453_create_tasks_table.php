@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Customer::class)->constrained();
-            $table->foreignIdFor(User::class)->nullable()->constrained();
+            $table->foreignIdFor(Customer::class);
+            $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
             $table->text('description');
             $table->date('due_date')->nullable();
             $table->boolean('is_completed')->default(false);

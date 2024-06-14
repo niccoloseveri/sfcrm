@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();
             $table->text('description')->nullable();
-            $table->foreignIdFor(LeadSource::class)->nullable()->constrained();
-            $table->foreignIdFor(PipelineStage::class)->nullable()->constrained();
+            $table->foreignIdFor(LeadSource::class)->nullable();
+            $table->foreignIdFor(PipelineStage::class)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
