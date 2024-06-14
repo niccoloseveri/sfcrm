@@ -218,6 +218,7 @@ class CustomerResource extends Resource
 
                     Tables\Actions\EditAction::make()->hidden(fn ($record) => $record->trashed()),
                     Tables\Actions\DeleteAction::make(),
+                    Tables\Actions\ForceDeleteAction::make(),
                     Tables\Actions\RestoreAction::make(),
                     Tables\Actions\Action::make('Muovi a altro Step')
                         ->hidden(fn ($record) => $record->trashed())
@@ -442,7 +443,7 @@ class CustomerResource extends Resource
         if(auth()->user()->isAdmin()){
             return parent::getEloquentQuery()
             ->withoutGlobalScopes([
-                //SoftDeletingScope::class,
+                SoftDeletingScope::class,
             ]);
         } else
         return parent::getEloquentQuery()->whereRelation('employee','employee_id', '!', null )
