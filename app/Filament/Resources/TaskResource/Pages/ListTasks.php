@@ -37,13 +37,13 @@ class ListTasks extends ListRecords
         $tabs[] = Tab::make('Completati')
             ->badge(Task::where('is_completed', true)->count())
             ->modifyQueryUsing(function ($query) {
-                return $query->where('is_completed', true);
+                return $query->where('is_completed', true)->where('user_id', auth()->id());
             });
 
         $tabs[] = Tab::make('Incompleti')
             ->badge(Task::where('is_completed', false)->count())
             ->modifyQueryUsing(function ($query) {
-                return $query->where('is_completed', false);
+                return $query->where('is_completed', false)->where('user_id', auth()->id());
             });
 
         return $tabs;
