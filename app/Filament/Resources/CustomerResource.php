@@ -60,24 +60,21 @@ class CustomerResource extends Resource
 
                 Forms\Components\Section::make('Dettagli Azienda')->label('Dettagli Azienda')
                 ->schema([
-                    Forms\Components\TextInput::make('nome_az')->label('Nome Azienda'),
-                    Forms\Components\TextInput::make('rag_sociale')->label('Ragione Sociale'),
+                    Forms\Components\TextInput::make('nome_az')->label('Nome Azienda - Ragione Sociale')->columnSpanFull(),
                     Forms\Components\TextInput::make('cf_azienda')->label('Codice Fiscale'),
                     Forms\Components\TextInput::make('piva')->label('Partita IVA'),
                     Forms\Components\TextInput::make('email_az')->label('Email'),
                     Forms\Components\TextInput::make('tel_az')->label('Telefono'),
                     Forms\Components\TextInput::make('website')->label('Sito Web'),
+                    Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
+
                     Forms\Components\Section::make('Indirizzo Azienda')->schema([
                         Forms\Components\TextInput::make('stato_az')->label('Nazione'),
                         Forms\Components\TextInput::make('prov_az')->label('Provincia'),
                         Forms\Components\TextInput::make('citta_az')->label('Città'),
                         Forms\Components\TextInput::make('cap_az')->label('CAP'),
-                        Forms\Components\TextInput::make('via_az')->label('Via'),
-                    ]),
-                    Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
-
-
-
+                        Forms\Components\TextInput::make('via_az')->label('Via')->columnSpanFull(),
+                    ])->columns(),
 
                 ])
                 ->columns()
@@ -101,15 +98,15 @@ class CustomerResource extends Resource
                             Forms\Components\TextInput::make('citta_r')->label('Città Residenza'),
                             Forms\Components\TextInput::make('cap_r')->label('CAP Residenza'),
                             Forms\Components\TextInput::make('via_r')->label('Via Residenza'),
-                        ]),
-                        Forms\Components\Section::make('Informazioni Consegna')->schema([
+                        ])->columns(),
+                        Forms\Components\Section::make('Indirizzo di Consegna')->schema([
                             Forms\Components\TextInput::make('stato_c')->label('Nazione Spedizione'),
                             Forms\Components\TextInput::make('prov_c')->label('Provincia Spedizione'),
                             Forms\Components\TextInput::make('citta_c')->label('Città Spedizione'),
                             Forms\Components\TextInput::make('cap_c')->label('CAP Spedizione'),
                             Forms\Components\TextInput::make('via_c')->label('Via Spedizione'),
-                        ]),
-                        Forms\Components\Textarea::make('description')->label('Descrizione')
+                        ])->columns(),
+                        Forms\Components\RichEditor::make('description')->label('Descrizione')
                             ->maxLength(65535)
                             ->columnSpanFull(),
                     ])
@@ -185,7 +182,7 @@ class CustomerResource extends Resource
                     ->label('Nome'),
                     */
                 Tables\Columns\TextColumn::make('first_name')
-                    ->label('Nomee')
+                    ->label('Cliente')
                     ->formatStateUsing(function ($record) {
                         $tagsList = view('customer.tagsList', ['tags' => $record->tags])->render();
 
@@ -198,7 +195,7 @@ class CustomerResource extends Resource
                 Tables\Columns\TextColumn::make('phone_number')
                     ->searchable()
                     ->label('Telefono'),
-                Tables\Columns\TextColumn::make('leadSource.name')->label('Lead da'),
+                Tables\Columns\TextColumn::make('leadSource.name')->label('Lead da')->toggleable(isToggledHiddenByDefault:true),
                 Tables\Columns\TextColumn::make('pipelineStage.name')->label('Step Pipeline'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

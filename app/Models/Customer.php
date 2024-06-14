@@ -88,7 +88,7 @@ class Customer extends Model
     {
         return $this->hasMany(Task::class);
     }
-    
+
     public function completedTasks(): HasMany
     {
         return $this->hasMany(Task::class)->where('is_completed', true);
@@ -98,4 +98,6 @@ class Customer extends Model
     {
         return $this->hasMany(Task::class)->where('is_completed', false);
     }
+
+    //funzione quotes hasmany
 }

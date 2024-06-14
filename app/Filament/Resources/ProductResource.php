@@ -31,7 +31,11 @@ class ProductResource extends Resource
                 Forms\Components\TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('€'),
+                Forms\Components\TextInput::make('fornitore')
+                    ->maxLength(255),
+                Forms\Components\TextArea::make('descrizione')
+                    ->maxLength(255),
             ]);
     }
 

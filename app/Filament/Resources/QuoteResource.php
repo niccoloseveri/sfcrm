@@ -77,6 +77,7 @@ class QuoteResource extends Resource
                                     ->default(1)
                                     ->required()
                                     ->live()
+                                //textinput sconto prodotto
                             ])
                             ->live()
                             ->afterStateUpdated(function (Get $get, $livewire) {
@@ -102,6 +103,7 @@ class QuoteResource extends Resource
                             ->afterStateUpdated(function (Get $get, $livewire) {
                                 self::updateTotals($get, $livewire);
                             }),
+                        //textinput sconto su subtotale
                         Forms\Components\TextInput::make('taxes')
                             ->suffix('%')
                             ->required()
@@ -128,24 +130,25 @@ class QuoteResource extends Resource
                         return $record->customer->first_name . ' ' . $record->customer->last_name;
                     })
                     ->searchable(['first_name', 'last_name'])
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('taxes')
+                    ->sortable()
+                    ->label('Cliente'),
+                Tables\Columns\TextColumn::make('taxes')->label('Tasse')
                     ->numeric()
                     ->suffix('%')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('subtotal')
+                Tables\Columns\TextColumn::make('subtotal')->label('Subtotale')
                     ->numeric()
-                    ->money()
+                    ->money('EUR')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('total')
+                Tables\Columns\TextColumn::make('total')->label('Totale')
                     ->numeric()
-                    ->money()
+                    ->money('EUR')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato il')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
