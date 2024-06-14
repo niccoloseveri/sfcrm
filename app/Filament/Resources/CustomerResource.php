@@ -183,13 +183,19 @@ class CustomerResource extends Resource
                     */
                 Tables\Columns\TextColumn::make('first_name')
                     ->label('Cliente')
+                    //->hidden(fn ($record) : Bool => $record->is_azienda)
                     ->formatStateUsing(function ($record) {
+                        //dd($record->is_azienda);
                         $tagsList = view('customer.tagsList', ['tags' => $record->tags])->render();
-
+                        if($record->is_azienda){
+                            $record->first_name = $record->nome_az;
+                            $record->last_name = '';
+                        }
                         return $record->first_name . ' ' . $record->last_name . ' ' . $tagsList;
                     })
                     ->html()
-                    ->searchable(['first_name', 'last_name']),
+                    ->searchable(['first_name', 'last_name'])
+                    ,
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone_number')
