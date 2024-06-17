@@ -34,7 +34,7 @@ class ProductResource extends Resource
                     ->prefix('€'),
                 Forms\Components\TextInput::make('fornitore')
                     ->maxLength(255),
-                Forms\Components\TextArea::make('descrizione')
+                Forms\Components\Textarea::make('descrizione')
                     ->maxLength(255),
             ]);
     }
