@@ -101,7 +101,7 @@ class AcceptInvitation extends SimplePage
 
     public function getHeading(): string
     {
-        return 'Accept Invitation';
+        return 'Accetta Invito';
     }
 
     public function hasLogo(): bool
@@ -111,6 +111,6 @@ class AcceptInvitation extends SimplePage
 
     public function getSubHeading(): string
     {
-        return 'Create your user to accept an invitation';
+        return "Crea il Tuo utente per accettare l'invito";
     }
 }

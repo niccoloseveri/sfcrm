@@ -1,11 +1,11 @@
 <x-mail::message>
-    You have been invited to join {{ config('app.name') }}
+    Sei stato invitato a entrare in {{ config('app.name') }}
 
-    To accept the invitation - click on the button below and create an account:
+    Per accettare l'invito - clicca sul bottone qua sotto e crea un profilo:
 
     <x-mail::button :url="$acceptUrl">
-        {{ __('Create Account') }}
+        {{ __('Crea Account') }}
     </x-mail::button>
 
-    {{ __('If you did not expect to receive an invitation to this team, you may discard this email.') }}
+    {{ __("Se non aspettavi una mail da parte nostra o non ne conosci la provenienza, ingora pure l'intero messaggio.") }}
 </x-mail::message>

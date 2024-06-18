@@ -25,16 +25,16 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label('Nome')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('price')
+                Forms\Components\TextInput::make('price')->label('Prezzo')
                     ->required()
                     ->numeric()
                     ->prefix('€'),
-                Forms\Components\TextInput::make('fornitore')
+                Forms\Components\TextInput::make('fornitore')->label('Fornitore')
                     ->maxLength(255),
-                Forms\Components\Textarea::make('descrizione')
+                Forms\Components\Textarea::make('descrizione')->label('Descrizione')
                     ->maxLength(255),
             ]);
     }
@@ -43,16 +43,16 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->label('Nome')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->money()
+                Tables\Columns\TextColumn::make('price')->label('Prezzo')
+                    ->money('EUR')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

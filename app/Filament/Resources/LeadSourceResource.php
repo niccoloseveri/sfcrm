@@ -7,6 +7,7 @@ use App\Filament\Resources\LeadSourceResource\RelationManagers;
 use App\Models\LeadSource;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -26,7 +27,7 @@ class LeadSourceResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label('Nome')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -36,13 +37,13 @@ class LeadSourceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->label('Nome')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -57,8 +58,8 @@ class LeadSourceResource extends Resource
                         if ($record->customers()->count() > 0) {
                             Notification::make()
                                 ->danger()
-                                ->title('Lead Source is in use')
-                                ->body('Lead Source is in use by customers.')
+                                ->title('Fonte Lead in uso')
+                                ->body('La fonte del Lead è utilizzata dai clienti.')
                                 ->send();
 
                             return;
@@ -66,8 +67,8 @@ class LeadSourceResource extends Resource
 
                         Notification::make()
                             ->success()
-                            ->title('Lead Source deleted')
-                            ->body('Lead Source has been deleted.')
+                            ->title('Fonte Lead eliminata')
+                            ->body('La fonte del lead è stata eliminata con successo.')
                             ->send();
 
                         $record->delete();

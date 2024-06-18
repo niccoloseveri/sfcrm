@@ -106,6 +106,7 @@ class CustomerResource extends Resource
                             Forms\Components\TextInput::make('citta_c')->label('Città Spedizione'),
                             Forms\Components\TextInput::make('cap_c')->label('CAP Spedizione'),
                             Forms\Components\TextInput::make('via_c')->label('Via Spedizione'),
+                            Forms\Components\Textarea::make('note_spedizione')->label('Note per la spedizione'),
                         ])->columns(),
                         Forms\Components\RichEditor::make('description')->label('Descrizione')
                             ->maxLength(65535)
@@ -205,15 +206,15 @@ class CustomerResource extends Resource
                     ->label('Telefono'),
                 Tables\Columns\TextColumn::make('leadSource.name')->label('Lead da')->toggleable(isToggledHiddenByDefault:true),
                 Tables\Columns\TextColumn::make('pipelineStage.name')->label('Step Pipeline'),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                Tables\Columns\TextColumn::make('deleted_at')->label('Eliminato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

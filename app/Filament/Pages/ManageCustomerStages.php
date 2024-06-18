@@ -41,7 +41,7 @@ class ManageCustomerStages extends Page
         $customerName = $customer->first_name . ' ' . $customer->last_name;
 
         Notification::make()
-            ->title($customerName . ' Pipeline Stage Updated')
+            ->title($customerName . ' Step Pipeline Aggiornato')
             ->success()
             ->send();
     }

@@ -28,22 +28,22 @@ class TaskResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('customer_id')
+                Forms\Components\Select::make('customer_id')->label('Cliente')
                     ->searchable()
                     ->relationship('customer')
                     ->getOptionLabelFromRecordUsing(fn (Customer $record) => $record->first_name . ' ' . $record->last_name)
                     ->searchable(['first_name', 'last_name'])
                     ->required(),
-                Forms\Components\Select::make('user_id')
+                Forms\Components\Select::make('user_id')->label('Impiegato')
                     ->preload()
                     ->searchable()
                     ->relationship('employee', 'name'),
-                Forms\Components\RichEditor::make('description')
+                Forms\Components\RichEditor::make('description')->label('Descrizione')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\DatePicker::make('due_date'),
-                Forms\Components\Toggle::make('is_completed')
+                Forms\Components\DatePicker::make('due_date')->label('Scadenza'),
+                Forms\Components\Toggle::make('is_completed')->label('Completato?')
                     ->required(),
             ]);
     }
@@ -52,28 +52,31 @@ class TaskResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('customer.first_name')
+                Tables\Columns\TextColumn::make('customer.first_name')->label('Cliente')
                     ->formatStateUsing(function ($record) {
-                        return $record->customer->first_name . ' ' . $record->customer->last_name;
+                        if($record->customer->is_azienda){
+                            $r = $record->customer->nome_az;
+                        } else $r = $record->customer->first_name . ' ' . $record->customer->last_name;
+                        return $r;
                     })
                     ->searchable(['first_name', 'last_name'])
                     ->sortable(),
-                Tables\Columns\TextColumn::make('employee.name')
-                    ->label('Employee')
+                Tables\Columns\TextColumn::make('employee.name')->label('Impiegato')
+
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('description')
+                Tables\Columns\TextColumn::make('description')->label('Descrizione')
                     ->html(),
-                Tables\Columns\TextColumn::make('due_date')
+                Tables\Columns\TextColumn::make('due_date')->label('Scadenza')
                     ->date()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_completed')
+                Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -84,17 +87,17 @@ class TaskResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('Complete')
+                Tables\Actions\Action::make('Complete')->label('Completa')
                     ->hidden(fn (Task $record) => $record->is_completed)
                     ->icon('heroicon-m-check-badge')
-                    ->modalHeading('Mark task as completed?')
-                    ->modalDescription('Are you sure you want to mark this task as completed?')
+                    ->modalHeading('Task completato?')
+                    ->modalDescription('Sei sicuro di vole contrassegnare il task come completo?')
                     ->action(function (Task $record) {
                         $record->is_completed = true;
                         $record->save();
 
                         Notification::make()
-                            ->title('Task marked as completed')
+                            ->title('Task completato.')
                             ->success()
                             ->send();
                     })

@@ -31,7 +31,7 @@ class TeamInvitationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Invitation to join ' . config('app.name'),
+            subject: 'Invito ad unirti a ' . config('app.name'),
         );
     }
 

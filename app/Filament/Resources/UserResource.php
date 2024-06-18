@@ -27,19 +27,19 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('role_id')
+                Forms\Components\Select::make('role_id')->label('Ruolo')
                     ->searchable()
                     ->preload()
                     ->relationship('role', 'name'),
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label('Nome')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+                Forms\Components\TextInput::make('email')->label('Email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
+                Forms\Components\DateTimePicker::make('email_verified_at')->label('Verificata il'),
+                Forms\Components\TextInput::make('password')->label('Password')
                     ->password()
                     // https://filamentphp.com/docs/3.x/forms/advanced#auto-hashing-password-field
                     ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
@@ -53,15 +53,15 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->label('Nome')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('email')->label('Email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

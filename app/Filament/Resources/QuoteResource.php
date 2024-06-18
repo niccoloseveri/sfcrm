@@ -37,7 +37,7 @@ class QuoteResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('customer_id')
+                Forms\Components\Select::make('customer_id')->label('Cliente')
                     ->searchable()
                     ->relationship('customer')
                     ->getOptionLabelFromRecordUsing(fn (Customer $record) => $record->first_name . ' ' . $record->last_name)
@@ -50,10 +50,10 @@ class QuoteResource extends Resource
                 Section::make()
                     ->columns(1)
                     ->schema([
-                        Forms\Components\Repeater::make('quoteProducts')
+                        Forms\Components\Repeater::make('quoteProducts')->label('Prodotti')
                             ->relationship()
                             ->schema([
-                                Forms\Components\Select::make('product_id')
+                                Forms\Components\Select::make('product_id')->label('Prodotto')
                                     ->relationship('product', 'name')
                                     ->disableOptionWhen(function ($value, $state, Get $get) {
                                         return collect($get('../*.product_id'))
@@ -67,15 +67,15 @@ class QuoteResource extends Resource
                                         self::updateTotals($get, $livewire);
                                     })
                                     ->required(),
-                                Forms\Components\TextInput::make('price')
+                                Forms\Components\TextInput::make('price')->label('Prezzo')
                                     ->required()
                                     ->numeric()
                                     ->live()
                                     ->afterStateUpdated(function (Get $get, $livewire) {
                                         self::updateTotals($get, $livewire);
                                     })
-                                    ->prefix('$'),
-                                Forms\Components\TextInput::make('quantity')
+                                    ->prefix('€'),
+                                Forms\Components\TextInput::make('quantity')->label('Quantità')
                                     ->integer()
                                     ->default(1)
                                     ->required()
@@ -99,15 +99,15 @@ class QuoteResource extends Resource
                     ->columns(1)
                     ->maxWidth('1/2')
                     ->schema([
-                        Forms\Components\TextInput::make('subtotal')
+                        Forms\Components\TextInput::make('subtotal')->label('Subtotale')
                             ->numeric()
                             ->readOnly()
-                            ->prefix('$')
+                            ->prefix('€')
                             ->afterStateUpdated(function (Get $get, $livewire) {
                                 self::updateTotals($get, $livewire);
                             }),
                         //textinput sconto su subtotale
-                        Forms\Components\TextInput::make('taxes')
+                        Forms\Components\TextInput::make('taxes')->label('Tasse')
                             ->suffix('%')
                             ->required()
                             ->numeric()
@@ -116,10 +116,10 @@ class QuoteResource extends Resource
                             ->afterStateUpdated(function (Get $get, $livewire) {
                                 self::updateTotals($get, $livewire);
                             }),
-                        Forms\Components\TextInput::make('total')
+                        Forms\Components\TextInput::make('total')->label('Totale')
                             ->numeric()
                             ->readOnly()
-                            ->prefix('$')
+                            ->prefix('€')
                     ])
             ]);
     }

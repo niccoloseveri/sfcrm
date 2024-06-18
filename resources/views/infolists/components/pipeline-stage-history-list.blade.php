@@ -12,12 +12,12 @@
             <div class="flex flex-col">
                 @if ($pipelineLog->pipelineStage)
                     <p>
-                        <span class="font-bold">Pipeline Stage:</span> {{ $pipelineLog->pipelineStage?->name }}
+                        <span class="font-bold">Step Pipeline:</span> {{ $pipelineLog->pipelineStage?->name }}
                     </p>
                 @endif
                 @if ($pipelineLog->employee)
                     <p>
-                        <span class="font-bold">Assigned Employee:</span> {{ $pipelineLog->employee?->name }}
+                        <span class="font-bold">Impiegato assegnato:</span> {{ $pipelineLog->employee?->name }}
                     </p>
                 @endif
             </div>

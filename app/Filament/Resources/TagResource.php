@@ -25,10 +25,10 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label('Nome')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\ColorPicker::make('color')
+                Forms\Components\ColorPicker::make('color')->label('Colore')
             ]);
     }
 
@@ -36,15 +36,15 @@ class TagResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->label('Nome')
                     ->searchable(),
-                Tables\Columns\ColorColumn::make('color')
+                Tables\Columns\ColorColumn::make('color')->label('Colore')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -59,8 +59,8 @@ class TagResource extends Resource
                         if ($record->customers()->count() > 0) {
                             Notification::make()
                                 ->danger()
-                                ->title('Tag is in use')
-                                ->body('Tag is in use by customers.')
+                                ->title('Tag in uso')
+                                ->body('Tag in uso dai clienti.')
                                 ->send();
 
                             return;
@@ -68,8 +68,8 @@ class TagResource extends Resource
 
                         Notification::make()
                             ->success()
-                            ->title('Tag deleted')
-                            ->body('Tag has been deleted.')
+                            ->title('Tag eliminato')
+                            ->body('Il Tag è stato eliminato.')
                             ->send();
 
                         $record->delete();

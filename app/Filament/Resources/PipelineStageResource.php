@@ -7,6 +7,7 @@ use App\Filament\Resources\PipelineStageResource\RelationManagers;
 use App\Models\PipelineStage;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -25,7 +26,7 @@ class PipelineStageResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label('Nome')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -35,15 +36,15 @@ class PipelineStageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')->label('Nome')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('is_default')
+                Tables\Columns\IconColumn::make('is_default')->label('Predefinito?')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
+                Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                Tables\Columns\TextColumn::make('updated_at')->label('Modificato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -54,12 +55,12 @@ class PipelineStageResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make('Set Default')
+                Tables\Actions\Action::make('Set Default')->label('Imposta come predefinito')
                     ->icon('heroicon-o-star')
                     ->hidden(fn ($record) => $record->is_default)
                     ->requiresConfirmation(function (Tables\Actions\Action $action, $record) {
-                        $action->modalDescription('Are you sure you want to set this as the default pipeline stage?');
-                        $action->modalHeading('Set "' . $record->name . '" as Default');
+                        $action->modalDescription('Sei sicuro di voler rendere predefinito questo step?');
+                        $action->modalHeading('Imposta "' . $record->name . '" come Predefinito');
 
                         return $action;
                     })
@@ -75,8 +76,8 @@ class PipelineStageResource extends Resource
                         if ($record->customers()->count() > 0) {
                             Notification::make()
                                 ->danger()
-                                ->title('Pipeline Stage is in use')
-                                ->body('Pipeline Stage is in use by customers.')
+                                ->title('Step in uso')
+                                ->body('Lo step è utilizzato dai clienti')
                                 ->send();
 
                             return;
@@ -84,8 +85,8 @@ class PipelineStageResource extends Resource
 
                         Notification::make()
                             ->success()
-                            ->title('Pipeline Stage deleted')
-                            ->body('Pipeline Stage has been deleted.')
+                            ->title('Eliminato')
+                            ->body('Step Pipeline eliminato.')
                             ->send();
 
                         $record->delete();

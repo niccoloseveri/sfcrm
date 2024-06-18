@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCustomer extends CreateRecord
 {
     protected static string $resource = CustomerResource::class;
+
+    function getRedirectUrl(): string
+    {
+        $response = $this->getResource()::getUrl('index');
+        if(auth()->user()->isAdmin()) $response = $this->getResource()::getUrl('view');
+        return $response;
+    }
 }
