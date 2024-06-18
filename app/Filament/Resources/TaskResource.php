@@ -42,7 +42,9 @@ class TaskResource extends Resource
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull(),
-                Forms\Components\DatePicker::make('due_date')->label('Scadenza'),
+                Forms\Components\DatePicker::make('due_date')->label('Data Scadenza'),
+                Forms\Components\TimePicker::make('due_time')->label('Ora Scadenza'),
+
                 Forms\Components\Toggle::make('is_completed')->label('Completato?')
                     ->required(),
             ]);
@@ -67,8 +69,11 @@ class TaskResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')->label('Descrizione')
                     ->html(),
-                Tables\Columns\TextColumn::make('due_date')->label('Scadenza')
+                Tables\Columns\TextColumn::make('due_date')->label('Data Scadenza')
                     ->date()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('due_time')->label('Ora Scadenza')
+                    ->time()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
                     ->boolean(),

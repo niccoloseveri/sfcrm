@@ -15,11 +15,13 @@ class Task extends Model
         'user_id',
         'description',
         'due_date',
+        'due_time',
         'is_completed',
     ];
 
     protected $casts = [
         'due_date' => 'date',
+        //'due_time' => 'time',
         'is_completed' => 'boolean',
     ];
 
