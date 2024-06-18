@@ -10,10 +10,20 @@ class CreateCustomer extends CreateRecord
 {
     protected static string $resource = CustomerResource::class;
 
-    function getRedirectUrl(): string
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $response = $this->getResource()::getUrl('index');
-        if(auth()->user()->isAdmin()) $response = $this->getResource()::getUrl('view');
+        if(!auth()->user()->isAdmin()){
+            $data['employee_id'] = auth()->user()->id;
+        }
+        return $data;
+    }
+
+    /*protected function getRedirectUrl(): string
+    {
+        //$response = $this->getResource()::getUrl('index');
+        //if(auth()->user()->isAdmin())
+        $response = $this->getResource()::getUrl('view');
         return $response;
     }
+    */
 }
