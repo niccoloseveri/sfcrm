@@ -16,7 +16,7 @@ use App\Http\Controllers\QuotePdfController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin');
 });
 
 Route::middleware('signed')

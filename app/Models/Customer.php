@@ -50,6 +50,7 @@ class Customer extends Model
 
     public static function booted(): void
     {
+
         self::created(function (Customer $customer) {
             $customer->pipelineStageLogs()->create([
                 'pipeline_stage_id' => $customer->pipeline_stage_id,

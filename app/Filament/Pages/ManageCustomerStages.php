@@ -96,7 +96,7 @@ class ManageCustomerStages extends Page
             ->map(function (Customer $item) {
                 return [
                     'id' => $item->id,
-                    'title' => $item->first_name . ' ' . $item->last_name,
+                    'title' => $item->is_azienda == true ? $item->nome_az : $item->first_name . ' ' . $item->last_name,
                     'status' => $item->pipeline_stage_id,
                 ];
             });
@@ -105,7 +105,7 @@ class ManageCustomerStages extends Page
             ->map(function (Customer $item) {
                 return [
                     'id' => $item->id,
-                    'title' => $item->first_name . ' ' . $item->last_name,
+                    'title' => $item->is_azienda == true ? $item->nome_az : $item->first_name . ' ' . $item->last_name,
                     'status' => $item->pipeline_stage_id,
                 ];
             });
