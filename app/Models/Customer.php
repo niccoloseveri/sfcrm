@@ -102,5 +102,14 @@ class Customer extends Model
         return $this->hasMany(Task::class)->where('is_completed', false);
     }
 
-    //funzione quotes hasmany
+    /**
+     * Get all of the quotes for the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function quotes(): HasMany
+    {
+        return $this->hasMany(Quote::class);
+    }
+
 }

@@ -44,6 +44,9 @@ class QuoteResource extends Resource
                     ->searchable(['first_name', 'last_name'])
                     ->default(request()->has('customer_id') ? request()->get('customer_id') : null)
                     ->required(),
+
+
+
                 Section::make()
                     ->columns(1)
                     ->schema([

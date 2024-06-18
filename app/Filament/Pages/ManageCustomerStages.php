@@ -91,6 +91,28 @@ class ManageCustomerStages extends Page
     // We are loading all the customers and mapping them to have ID, title, and status
     protected function records(): Collection
     {
+        if(auth()->user()->isAdmin()){
+            $customers = Customer::all()
+            ->map(function (Customer $item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->first_name . ' ' . $item->last_name,
+                    'status' => $item->pipeline_stage_id,
+                ];
+            });
+        } else {
+            $customers = Customer::whereRelation('pipelineStageLogs','user_id', '=',auth()->user()->id)->get()
+            ->map(function (Customer $item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->first_name . ' ' . $item->last_name,
+                    'status' => $item->pipeline_stage_id,
+                ];
+            });
+        }
+
+        return $customers;
+        /*
         return Customer::all()
             ->map(function (Customer $item) {
                 return [
@@ -99,6 +121,7 @@ class ManageCustomerStages extends Page
                     'status' => $item->pipeline_stage_id,
                 ];
             });
+        */
     }
 
     // We are checking if the record is in the status
