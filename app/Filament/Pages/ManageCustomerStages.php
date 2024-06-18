@@ -101,7 +101,7 @@ class ManageCustomerStages extends Page
                 ];
             });
         } else {
-            $customers = Customer::whereRelation('pipelineStageLogs','user_id', '=',auth()->user()->id)->get()
+            $customers = Customer::where('employee_id','=',auth()->user()->id)->get()
             ->map(function (Customer $item) {
                 return [
                     'id' => $item->id,
