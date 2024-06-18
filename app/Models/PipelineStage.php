@@ -16,6 +16,8 @@ class PipelineStage extends Model
         'is_default',
     ];
 
+
+
     public function customers(): HasMany
     {
         return $this->hasMany(Customer::class);

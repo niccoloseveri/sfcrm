@@ -166,6 +166,7 @@ class CustomerResource extends Resource
                                 Forms\Components\TextInput::make('value')->label('Valore')
                                     ->required()
                             ])
+                            ->defaultItems(0)
                             ->addActionLabel('Aggiungi altro')
                             ->columns(),
                     ]),
@@ -195,7 +196,7 @@ class CustomerResource extends Resource
                         return $record->first_name . ' ' . $record->last_name . ' ' . $tagsList;
                     })
                     ->html()
-                    ->searchable(['first_name', 'last_name'])
+                    ->searchable(['first_name', 'last_name','nome_az'])
                     ,
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),

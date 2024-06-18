@@ -130,9 +130,12 @@ class QuoteResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('customer.first_name')
                     ->formatStateUsing(function ($record) {
-                        return $record->customer->first_name . ' ' . $record->customer->last_name;
+                        if($record->customer->is_azienda){
+                            $r = $record->customer->nome_az;
+                        } else $r = $record->customer->first_name . ' ' . $record->customer->last_name;
+                        return $r;
                     })
-                    ->searchable(['first_name', 'last_name'])
+                    ->searchable(['first_name', 'last_name','nome_az'])
                     ->sortable()
                     ->label('Cliente'),
                 Tables\Columns\TextColumn::make('taxes')->label('Tasse')

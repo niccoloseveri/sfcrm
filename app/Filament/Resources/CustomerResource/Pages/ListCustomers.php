@@ -28,11 +28,11 @@ class ListCustomers extends ListRecords
         if(auth()->user()->isAdmin()){
         $tabs['all'] = Tab::make('Tutti i Clienti')
             // We will add a badge to show how many customers are in this tab
-            ->badge(Customer::count());
+            ->badge(Customer::count())->badgeColor('warning');
         }
         if (!auth()->user()->isAdmin()) {
             $tabs['my'] = Tab::make('I Miei Clienti')
-                ->badge(Customer::where('employee_id', auth()->id())->count())
+                ->badge(Customer::where('employee_id', auth()->id())->count())->badgeColor('warning')
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('employee_id', auth()->id());
                 });
@@ -47,14 +47,14 @@ class ListCustomers extends ListRecords
             // Array index is going to be used in the URL as a slug, so we transform the name into a slug
             $tabs[str($pipelineStage->name)->slug()->toString()] = Tab::make($pipelineStage->name)
                 // We will add a badge to show how many customers are in this tab
-                ->badge($pipelineStage->customers_count)
+                ->badge($pipelineStage->customers_count >=1 ? ' • ': null)->badgeColor('warning')
                 // We will modify the query to only show customers in this Pipeline Stage
                 ->modifyQueryUsing(function ($query) use ($pipelineStage) {
                     return $query->where('pipeline_stage_id', $pipelineStage->id);
                 });
         }
         $tabs['archived'] = Tab::make('Archiviati')
-            ->badge(Customer::onlyTrashed()->count())
+            ->badge(Customer::onlyTrashed()->count() >=1 ? ' • ' : null )->badgeColor('warning')
             ->modifyQueryUsing(function ($query) {
                 return $query->onlyTrashed();
             });
