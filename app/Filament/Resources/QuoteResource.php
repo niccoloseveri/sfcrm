@@ -40,8 +40,14 @@ class QuoteResource extends Resource
                 Forms\Components\Select::make('customer_id')->label('Cliente')
                     ->searchable()
                     ->relationship('customer')
-                    ->getOptionLabelFromRecordUsing(fn (Customer $record) => $record->first_name . ' ' . $record->last_name)
-                    ->searchable(['first_name', 'last_name'])
+                    ->getOptionLabelFromRecordUsing(function (Customer $record){
+                        if($record->is_azienda){
+                            $r = $record->nome_az;
+                        } else $r = $record->first_name . ' ' . $record->last_name;
+                        return $r;
+                    })
+                    ->preload()
+                    ->searchable(['first_name', 'last_name','nome_az'])
                     ->default(request()->has('customer_id') ? request()->get('customer_id') : null)
                     ->required(),
 

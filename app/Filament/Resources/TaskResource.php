@@ -31,10 +31,16 @@ class TaskResource extends Resource
                 Forms\Components\Select::make('customer_id')->label('Cliente')
                     ->searchable()
                     ->relationship('customer')
-                    ->getOptionLabelFromRecordUsing(fn (Customer $record) => $record->first_name . ' ' . $record->last_name)
-                    ->searchable(['first_name', 'last_name'])
+                    ->getOptionLabelFromRecordUsing(function (Customer $record){
+                        if($record->is_azienda){
+                            $r = $record->nome_az;
+                        } else $r = $record->first_name . ' ' . $record->last_name;
+                        return $r;
+                    })
+                    ->preload()
+                    ->searchable(['first_name', 'last_name', 'nome_az'])
                     ->required(),
-                Forms\Components\Select::make('user_id')->label('Impiegato')
+                Forms\Components\Select::make('user_id')->label('Commerciale')
                     ->preload()
                     ->searchable()
                     ->relationship('employee', 'name'),
