@@ -110,6 +110,7 @@ class CustomerResource extends Resource
                         ])->columns(),
                         Forms\Components\RichEditor::make('description')->label('Descrizione')
                             ->maxLength(65535)
+
                             ->columnSpanFull(),
                     ])
                     ->columns(),
@@ -323,7 +324,7 @@ class CustomerResource extends Resource
                     ->columns(),
                 Section::make('Additional Details')->heading('Informazioni Aggiuntive')
                     ->schema([
-                        TextEntry::make('description')->label('Descrizione'),
+                        TextEntry::make('description')->label('Descrizione')->html(),
                     ]),
                 Section::make('Lead and Stage Information')->heading('Informazioni stato Lead')
                     ->schema([
