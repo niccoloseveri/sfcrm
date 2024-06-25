@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\QuoteResource\Pages\CreateQuote;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Filament\Resources\CustomerResource\RelationManagers\QuotesRelationManager;
+use Filament\Infolists\Components\Fieldset;
 
 class CustomerResource extends Resource
 {
@@ -310,18 +311,68 @@ class CustomerResource extends Resource
     {
         return $infolist
             ->schema([
-                Section::make('Personal Information')->heading('Informazioni Personali')
+                Fieldset::make('Company Information')->label('Informazioni Azienda')
+                ->schema([
+                    Section::make('Company Information')->heading('Anagrafica Azienda')
                     ->schema([
-                        TextEntry::make('first_name')->label('Nome'),
-                        TextEntry::make('last_name')->label('Cognome'),
+                        TextEntry::make('nome_az')->label('Nome Azienda - Ragione Sociale')->columnSpanFull(),
+                        TextEntry::make('cf_azienda')->label('Codice Fiscale'),
+                        TextEntry::make('piva')->label('Partita IVA'),
+                        TextEntry::make('email_az')->label('Email'),
+                        TextEntry::make('tel_az')->label('Telefono'),
+                        TextEntry::make('website')->label('Sito Web'),
+                        TextEntry::make('cod_univoco')->label('Cod. Univoco'),
+                    ])->columns()
+                    ->collapsible(),
+                    Section::make('Company Address')->heading('Indirizzo Azienda')
+                    ->schema([
+                        TextEntry::make('stato_az')->label('Nazione'),
+                        TextEntry::make('prov_az')->label('Provincia'),
+                        TextEntry::make('citta_az')->label('Città'),
+                        TextEntry::make('cap_az')->label('CAP'),
+                        TextEntry::make('via_az')->label('Via'),
+
+                    ])->collapsible()->collapsed()->columns(),
+                ])->columns()->visible(fn ($record) => $record->nome_az != ''),
+
+                Fieldset::make('Contact Information')->label('Informazioni di Contatto')
+                    ->schema([
+                        Section::make('Personal Information')->heading('Informazioni Personali')
+                        ->schema([
+                            TextEntry::make('first_name')->label('Nome'),
+                            TextEntry::make('last_name')->label('Cognome'),
+                            TextEntry::make('email')->label('Email'),
+                            TextEntry::make('phone_number')->label('Telefono'),
+                        ])
+                        ->columns()
+                        ->collapsible()
+                        //->collapsed(fn ($record) => $record->nome_az != '')
+                        ,
+
+                        Section::make('Contact Address')->heading('Informazioni Residenza')
+                        ->schema([
+                            TextEntry::make('stato_r')->label('Nazione'),
+                            TextEntry::make('prov_r')->label('Provincia'),
+                            TextEntry::make('citta_r')->label('Città'),
+                            TextEntry::make('cap_r')->label('CAP'),
+                            TextEntry::make('via_r')->label('Via'),
+                        ])
+                        ->columns()
+                        ->collapsible()
+                        ->collapsed(fn ($record) => $record->nome_az != ''),
+                    ])->columns(),
+
+                Section::make('Shipping Address')->heading('Indirizzo di Consegna')
+                    ->schema([
+                        TextEntry::make('stato_c')->label('Nazione'),
+                        TextEntry::make('prov_c')->label('Provincia'),
+                        TextEntry::make('citta_c')->label('Città'),
+                        TextEntry::make('cap_c')->label('CAP'),
+                        TextEntry::make('via_c')->label('Via'),
+                        TextEntry::make('note_spedizione')->columnSpanFull()->html(),
                     ])
                     ->columns(),
-                Section::make('Contact Information')->heading('Informazioni di Contatto')
-                    ->schema([
-                        TextEntry::make('email')->label('Email'),
-                        TextEntry::make('phone_number')->label('Telefono'),
-                    ])
-                    ->columns(),
+
                 Section::make('Additional Details')->heading('Informazioni Aggiuntive')
                     ->schema([
                         TextEntry::make('description')->label('Descrizione')->html(),
