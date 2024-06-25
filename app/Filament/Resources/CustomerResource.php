@@ -398,27 +398,28 @@ class CustomerResource extends Resource
                                         TextEntry::make('description')->label('Descrizione')
                                             ->html()
                                             ->columnSpanFull(),
-                                        TextEntry::make('employee.name')
+                                        TextEntry::make('employee.name')->label('Commerciale')
                                             ->hidden(fn ($state) => is_null($state)),
-                                        TextEntry::make('due_date')
+                                        TextEntry::make('due_date')->label('Scadenza')
                                             ->hidden(fn ($state) => is_null($state))
                                             ->date(),
-                                        TextEntry::make('is_completed')
+                                        TextEntry::make('is_completed')->label('Completo?')
                                             ->formatStateUsing(function ($state) {
                                                 return $state ? 'Yes' : 'No';
                                             })
                                             ->suffixAction(
                                                 Action::make('complete')
+                                                    ->label('Completa')
                                                     ->button()
                                                     ->requiresConfirmation()
-                                                    ->modalHeading('Mark task as completed?')
-                                                    ->modalDescription('Are you sure you want to mark this task as completed?')
+                                                    ->modalHeading('Segnala task completato')
+                                                    ->modalDescription('Sei sicuro di aver completato il task?')
                                                     ->action(function (Task $record) {
                                                         $record->is_completed = true;
                                                         $record->save();
 
                                                         Notification::make()
-                                                            ->title('Task marked as completed')
+                                                            ->title('Task Completato.')
                                                             ->success()
                                                             ->send();
                                                     })
