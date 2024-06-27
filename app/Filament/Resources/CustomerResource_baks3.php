@@ -139,7 +139,7 @@ class CustomerResource extends Resource
                             ->reorderable(false)
                             ->addActionLabel('Aggiungi Documento')
                             ->schema([
-                                Forms\Components\FileUpload::make('file_path')->label('Percorso file')
+                                Forms\Components\FileUpload::make('file_path')->label('Percorso file')->visibility('private')->downloadable()
                                     ->required(),
                                 Forms\Components\Textarea::make('comments')->label('Commenti'),
                             ])
@@ -405,7 +405,7 @@ class CustomerResource extends Resource
                                     ->label('Documento')
                                     // This will rename the column to "Download Document" (otherwise, it's just the file name)
                                     ->formatStateUsing(fn () => "Download Documento")
-                                    ->url(fn ($record) => Storage::url($record->file_path), true)
+                                    ->url(fn ($record) => Storage::url($record->file_path), true) //Storage::temporaryUrl($record->file_path, now()->addHours(1)), true)
                                     // This will make the link look like a "badge" (blue)
                                     ->badge()
                                     ->color(Color::Blue),
