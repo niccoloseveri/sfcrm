@@ -9,6 +9,8 @@ use Filament\Resources\Pages\EditRecord;
 class EditCustomer extends EditRecord
 {
     protected static string $resource = CustomerResource::class;
+    protected ?string $subheading = 'Caricamento documenti disabilitato.';
+
 
     protected function getHeaderActions(): array
     {
