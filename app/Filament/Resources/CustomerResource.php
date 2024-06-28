@@ -139,7 +139,7 @@ class CustomerResource extends Resource
                             ->reorderable(false)
                             ->addActionLabel('Aggiungi Documento')
                             ->schema([
-                                Forms\Components\FileUpload::make('file_path')->label('Percorso file')->visibility('private')->downloadable()
+                                Forms\Components\FileUpload::make('file_path')->label('Percorso file')
                                     ->required(),
                                 Forms\Components\Textarea::make('comments')->label('Commenti'),
                             ])
