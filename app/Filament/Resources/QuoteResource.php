@@ -165,6 +165,7 @@ class QuoteResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultPaginationPageOption(25)
             ->filters([
                 //
             ])

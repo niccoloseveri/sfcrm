@@ -47,6 +47,7 @@ class Customer extends Model
         'cap_c',
         'via_c',
         'note_spedizione',
+        'settore_id',
     ];
 
     public function leadSource(): BelongsTo
@@ -132,6 +133,16 @@ class Customer extends Model
     public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class);
+    }
+
+    /**
+     * Get the settore that owns the Customer
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function settore(): BelongsTo
+    {
+        return $this->belongsTo(Settore::class);
     }
 
 }

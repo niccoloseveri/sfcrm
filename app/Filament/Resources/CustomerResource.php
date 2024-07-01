@@ -69,6 +69,7 @@ class CustomerResource extends Resource
                     Forms\Components\TextInput::make('tel_az')->label('Telefono'),
                     Forms\Components\TextInput::make('website')->label('Sito Web'),
                     Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
+                    Forms\Components\Select::make('settore_id')->relationship(name:'settore',titleAttribute:'name')->preload(),
 
                     Forms\Components\Section::make('Indirizzo Azienda')->schema([
                         Forms\Components\TextInput::make('stato_az')->label('Nazione'),
@@ -193,13 +194,14 @@ class CustomerResource extends Resource
                         //dd($record->is_azienda);
                         $tagsList = view('customer.tagsList', ['tags' => $record->tags])->render();
                         if($record->is_azienda){
-                            $record->first_name = $record->nome_az;
-                            $record->last_name = '';
+                            $record->first_name = '';
+                            $record->last_name = $record->nome_az;
                         }
                         return $record->first_name . ' ' . $record->last_name . ' ' . $tagsList;
                     })
                     ->html()
                     ->searchable(['first_name', 'last_name','nome_az'])
+
                     ,
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
@@ -220,7 +222,7 @@ class CustomerResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultPaginationPageOption(25)
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
             ])
