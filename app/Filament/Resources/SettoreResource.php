@@ -19,8 +19,8 @@ class SettoreResource extends Resource
     protected static ?string $model = Settore::class;
 
     protected static ?string $navigationGroup = 'Impostazioni';
-    protected static ?string $modelLabel="Tipologia Aienda";
-    protected static ?string $pluralModelLabel="Tipologie Aiende";
+    protected static ?string $modelLabel="Tipologia Azienda";
+    protected static ?string $pluralModelLabel="Tipologie Aziende";
 
 
     public static function form(Form $form): Form
@@ -28,7 +28,7 @@ class SettoreResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->label('Nome')->required(),
-                Forms\Components\Textarea::make('description')->label('descrizione')->autosize(),
+                Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
 
                 //
             ]);

@@ -69,7 +69,10 @@ class CustomerResource extends Resource
                     Forms\Components\TextInput::make('tel_az')->label('Telefono'),
                     Forms\Components\TextInput::make('website')->label('Sito Web'),
                     Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
-                    Forms\Components\Select::make('settore_id')->relationship(name:'settore',titleAttribute:'name')->preload(),
+                    Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->searchable()->preload()->createOptionForm([
+                        Forms\Components\TextInput::make('name')->label('Nome')->required(),
+                        Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
+                    ]),
 
                     Forms\Components\Section::make('Indirizzo Azienda')->schema([
                         Forms\Components\TextInput::make('stato_az')->label('Nazione'),
