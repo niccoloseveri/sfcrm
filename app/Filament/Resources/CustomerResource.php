@@ -188,9 +188,9 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('settore.name')->label('Tipologia')->default('-'),
+                Tables\Columns\TextColumn::make('settore.name')->label('Tipologia')->default('–'),
 
-                Tables\Columns\TextColumn::make('employee.name')->label('Referente')
+                Tables\Columns\TextColumn::make('employee.name')->label('Referente')->default('–')
                     ->hidden(!auth()->user()->isAdmin()),
                /* Tables\Columns\TextColumn::make('first_name')
                     ->label('Nome'),
