@@ -188,6 +188,8 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('settore.name')->label('Tipologia')->default('-'),
+
                 Tables\Columns\TextColumn::make('employee.name')->label('Referente')
                     ->hidden(!auth()->user()->isAdmin()),
                /* Tables\Columns\TextColumn::make('first_name')
@@ -207,11 +209,10 @@ class CustomerResource extends Resource
                     })
                     ->html()
                     ->searchable(['first_name', 'last_name','nome_az'])
-
                     ,
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('email')->toggleable(isToggledHiddenByDefault:true)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone_number')
+                Tables\Columns\TextColumn::make('phone_number')->toggleable(isToggledHiddenByDefault:true)
                     ->searchable()
                     ->label('Telefono'),
                 Tables\Columns\TextColumn::make('leadSource.name')->label('Lead da')->toggleable(isToggledHiddenByDefault:true),
