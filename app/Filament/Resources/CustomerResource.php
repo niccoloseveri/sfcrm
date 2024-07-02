@@ -38,6 +38,7 @@ use App\Filament\Resources\QuoteResource\Pages\CreateQuote;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Filament\Resources\CustomerResource\RelationManagers\QuotesRelationManager;
 use Filament\Infolists\Components\Fieldset;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 
 class CustomerResource extends Resource
@@ -233,6 +234,9 @@ class CustomerResource extends Resource
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('settore')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->preload()->searchable()->multiple(),
+                SelectFilter::make('pipelineStage')->label('Step Pipeline')->relationship(name:'pipelineStage',titleAttribute:'name')->preload()->searchable()->multiple(),
+
+                SelectFilter::make('employee')->label('Referente')->relationship(name:'employee',titleAttribute:'name')->preload()->searchable()->multiple()->hidden(!auth()->user()->isAdmin()),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
