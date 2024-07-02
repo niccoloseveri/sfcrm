@@ -38,6 +38,7 @@ use App\Filament\Resources\QuoteResource\Pages\CreateQuote;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Filament\Resources\CustomerResource\RelationManagers\QuotesRelationManager;
 use Filament\Infolists\Components\Fieldset;
+use Filament\Tables\Filters\SelectFilter;
 
 class CustomerResource extends Resource
 {
@@ -51,6 +52,12 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live(),
+                Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->searchable()->preload()->createOptionForm([
+                    Forms\Components\TextInput::make('name')->label('Nome')->required(),
+                    Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
+                ]),
+
                 Forms\Components\Section::make('Informazioni Dipendente')
                     ->schema([
                         Forms\Components\Select::make('employee_id')->label('Nome')
@@ -58,7 +65,6 @@ class CustomerResource extends Resource
                     ])
                     ->hidden(!auth()->user()->isAdmin()),
 
-                Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live(),
 
                 Forms\Components\Section::make('Dettagli Azienda')->label('Dettagli Azienda')
                 ->schema([
@@ -69,10 +75,7 @@ class CustomerResource extends Resource
                     Forms\Components\TextInput::make('tel_az')->label('Telefono'),
                     Forms\Components\TextInput::make('website')->label('Sito Web'),
                     Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
-                    Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->searchable()->preload()->createOptionForm([
-                        Forms\Components\TextInput::make('name')->label('Nome')->required(),
-                        Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
-                    ]),
+
 
                     Forms\Components\Section::make('Indirizzo Azienda')->schema([
                         Forms\Components\TextInput::make('stato_az')->label('Nazione'),
@@ -228,6 +231,7 @@ class CustomerResource extends Resource
             ])->defaultPaginationPageOption(25)
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
+                SelectFilter::make('settore')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->preload()->searchable()->multiple(),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
