@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Edwink\FilamentUserActivity\FilamentUserActivityPlugin;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
@@ -69,7 +70,9 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                FilamentFullCalendarPlugin::make()
+                FilamentFullCalendarPlugin::make(),
+                FilamentUserActivityPlugin::make()
+
             ]);
     }
 }
