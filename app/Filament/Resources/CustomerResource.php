@@ -450,9 +450,13 @@ class CustomerResource extends Resource
                                             ->columnSpanFull(),
                                         TextEntry::make('employee.name')->label('Referente')
                                             ->hidden(fn ($state) => is_null($state)),
-                                        TextEntry::make('due_date')->label('Scadenza')
+                                        TextEntry::make('due_date')->label('Data Scadenza')
                                             ->hidden(fn ($state) => is_null($state))
-                                            ->date(),
+                                            ->date('d/m/Y'),
+                                        TextEntry::make('due_time')->label('Ora Scadenza')
+                                            ->hidden(fn ($state) => is_null($state))
+                                            ->date('H:i'),
+                                        //Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s'))
                                     ])
                                     ->columns()
                             ]),
@@ -467,9 +471,12 @@ class CustomerResource extends Resource
                                             ->columnSpanFull(),
                                         TextEntry::make('employee.name')->label('Commerciale')
                                             ->hidden(fn ($state) => is_null($state)),
-                                        TextEntry::make('due_date')->label('Scadenza')
+                                        TextEntry::make('due_date')->label('Data Scadenza')
                                             ->hidden(fn ($state) => is_null($state))
-                                            ->date(),
+                                            ->date('d/m/Y'),
+                                        TextEntry::make('due_time')->label('Ora Scadenza')
+                                            ->hidden(fn ($state) => is_null($state))
+                                            ->date('H:i'),
                                         TextEntry::make('is_completed')->label('Completo?')
                                             ->formatStateUsing(function ($state) {
                                                 return $state ? 'Yes' : 'No';
@@ -492,7 +499,7 @@ class CustomerResource extends Resource
                                                     })
                                             ),
                                     ])
-                                    ->columns(3)
+                                    ->columns(4)
                             ])
                     ])
                     ->columnSpanFull(),
