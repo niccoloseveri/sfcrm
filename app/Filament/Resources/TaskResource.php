@@ -60,6 +60,8 @@ class TaskResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('customer.first_name')->label('Cliente')
                     ->formatStateUsing(function ($record) {
                         if($record->customer->is_azienda){
@@ -81,8 +83,7 @@ class TaskResource extends Resource
                 Tables\Columns\TextColumn::make('due_time')->label('Ora Scadenza')
                     ->time()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
-                    ->boolean(),
+
                 Tables\Columns\TextColumn::make('created_at')->label('Creato')
                     ->dateTime()
                     ->sortable()
