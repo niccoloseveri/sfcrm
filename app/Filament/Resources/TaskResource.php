@@ -72,9 +72,9 @@ class TaskResource extends Resource
                     ->searchable(['first_name', 'last_name'])
                     ->sortable(),
                 Tables\Columns\TextColumn::make('employee.name')->label('Impiegato')
-
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->hidden(!auth()->user()->isAdmin()),
                 Tables\Columns\TextColumn::make('description')->label('Descrizione')
                     ->html(),
                 Tables\Columns\TextColumn::make('due_date')->label('Data Scadenza')
