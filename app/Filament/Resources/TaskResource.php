@@ -44,6 +44,13 @@ class TaskResource extends Resource
                     ->preload()
                     ->searchable()
                     ->relationship('employee', 'name'),
+
+                Forms\Components\Select::make('task_categories_id')->label('Categoria')
+                ->preload()
+                ->searchable()
+                ->relationship('taskcategory','name')
+                ->default(1),
+
                 Forms\Components\RichEditor::make('description')->label('Descrizione')
                     ->required()
                     ->maxLength(65535)

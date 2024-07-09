@@ -458,7 +458,7 @@ class CustomerResource extends Resource
                                             ->date('H:i'),
                                         //Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s'))
                                     ])
-                                    ->columns()
+                                    ->columns(3)
                             ]),
                         Tabs\Tab::make('Incomplete')->label('Incompleti')
                             ->badge(fn ($record) => $record->incompleteTasks->count())
