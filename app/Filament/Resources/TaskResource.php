@@ -50,7 +50,12 @@ class TaskResource extends Resource
                 ->preload()
                 ->searchable()
                 ->relationship('taskcategory','name')
-                ->default(1),
+                ->createOptionForm([
+                    Forms\Components\TextInput::make('name')->label('Nome')
+                    ->required()
+                    ->maxLength(255),
+                    Forms\Components\ColorPicker::make('color')->label('Colore')
+                ]),
 
                 Forms\Components\RichEditor::make('description')->label('Descrizione')
                     ->required()
@@ -140,7 +145,7 @@ class TaskResource extends Resource
                 ]),
             ])
             ->defaultSort(function ($query) {
-                return $query->orderBy('due_date', 'asc')
+                return $query->orderBy('due_date', 'desc')
                     ->orderBy('id', 'desc');
             });
     }
