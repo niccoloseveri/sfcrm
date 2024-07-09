@@ -106,6 +106,8 @@ class TaskResource extends Resource
             ->filters([
                 //
                 Filter::make('is_completed')->query(fn(Builder $query): Builder => $query->where('is_completed',true))->label('Completati')->default(false)->toggle(),
+                Filter::make('not_completed')->query(fn(Builder $query): Builder => $query->where('is_completed',false))->label('Non Completati')->default(false)->toggle(),
+
                 /*TernaryFilter::make('is_completed')->label('Completato?')->placeholder('Tutti')->trueLabel('Completati')->falseLabel('Non Completati')
                 ->queries(
                     true: fn (Builder $query) => $query->where('is_completed',true),
