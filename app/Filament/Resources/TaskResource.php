@@ -14,7 +14,8 @@ use App\Filament\Resources\TaskResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TaskResource\RelationManagers;
 use Filament\Notifications\Notification;
-
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
 
 class TaskResource extends Resource
 {
@@ -68,7 +69,8 @@ class TaskResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
-                    ->boolean(),
+                    ->boolean()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('customer.first_name')->label('Cliente')
                     ->formatStateUsing(function ($record) {
                         if($record->customer->is_azienda){
@@ -103,6 +105,15 @@ class TaskResource extends Resource
             ])
             ->filters([
                 //
+                Filter::make('is_completed')->query(fn(Builder $query): Builder => $query->where('is_completed',true))->label('Completati')->default(false)->toggle(),
+                /*TernaryFilter::make('is_completed')->label('Completato?')->placeholder('Tutti')->trueLabel('Completati')->falseLabel('Non Completati')
+                ->queries(
+                    true: fn (Builder $query) => $query->where('is_completed',true),
+                    false: fn(Builder $query) => $query->where('is_completed',false),
+                    blank: fn(Builder $query) => $query, //both options showed
+                ),
+                */
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

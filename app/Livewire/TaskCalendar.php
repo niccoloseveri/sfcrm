@@ -29,7 +29,7 @@ class TaskCalendar extends FullCalendarWidget
                 function (Task $task) : array {
                     $event = EventData::make()
                         ->id($task->id)
-                        ->title(strip_tags($task->description))
+                        ->title(html_entity_decode(strip_tags($task->description)))
                         ->start(Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s')))
                         ->end($task->due_date);
                     if($task->taskcategory != null){

@@ -22,22 +22,24 @@ class ListTasks extends ListRecords
     public function getTabs(): array
     {
         $tabs = [];
+        if (auth()->user()->isAdmin()) {
+            $tabs[] = Tab::make('Tutti i Tasks')
+                ->badge(Task::count());
+            }
 
-        if (!auth()->user()->isAdmin()) {
+        //if (!auth()->user()->isAdmin()) {
             $tabs[] = Tab::make('I Miei Tasks')
                 ->badge(Task::where('user_id', auth()->id())->count())
                 ->modifyQueryUsing(function ($query) {
                     return $query->where('user_id', auth()->id());
                 });
-        }
-        if (auth()->user()->isAdmin()) {
-        $tabs[] = Tab::make('Tutti i Tasks')
-            ->badge(Task::count());
-        }
+        //}
+
         $tabs[] = Tab::make('Completati')
             ->badge(Task::where('is_completed', true)->where('user_id', auth()->id())->count())
             ->modifyQueryUsing(function ($query) {
-                return $query->where('is_completed', true)->where('user_id', auth()->id());
+                return $query->where('is_completed', true)->where('user_id', auth()->id())
+                ;
             });
 
         $tabs[] = Tab::make('Incompleti')
