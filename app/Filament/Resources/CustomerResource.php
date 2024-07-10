@@ -437,7 +437,7 @@ class CustomerResource extends Resource
                             ->view('infolists.components.pipeline-stage-history-list')
                     ])
                     ->collapsible(),
-                Tabs::make('Tasks')
+                Tabs::make('Tasks')->activeTab(2)
                     ->tabs([
                         Tabs\Tab::make('Completed')->label('Completati')
                             ->badge(fn ($record) => $record->completedTasks->count())
