@@ -62,7 +62,7 @@ class CustomerResource extends Resource
                 Forms\Components\Section::make('Informazioni Dipendente')
                     ->schema([
                         Forms\Components\Select::make('employee_id')->label('Nome')
-                            ->options(User::where('role_id', Role::where('name', 'Employee')->first()->id)->pluck('name', 'id'))
+                            ->options(User::where('role_id', Role::where('name', 'Employee')->first()->id)->orWhere('role_id',Role::where('name','Admin')->first()->id)->pluck('name', 'id'))
                     ])
                     ->hidden(!auth()->user()->isAdmin()),
 
