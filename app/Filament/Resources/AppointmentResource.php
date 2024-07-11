@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use App\Models\Customer;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -101,12 +102,30 @@ class AppointmentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Complete')->label('Completa')
+                    ->hidden(fn (Appointment $record) => $record->is_completed)
+                    ->icon('heroicon-m-check-badge')
+                    ->modalHeading('Appuntamento finito?')
+                    ->modalDescription("Sei sicuro di vole contrassegnare l'appuntamento come finito?")
+                    ->action(function (Appointment $record) {
+                        $record->is_completed = true;
+                        $record->save();
+
+                        Notification::make()
+                            ->title('Appuntamento completato.')
+                            ->success()
+                            ->send();
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort(function ($query) {
+                return $query->orderBy('due_date', 'desc')
+                    ->orderBy('id', 'desc');
+            });
     }
 
     public static function getRelations(): array
