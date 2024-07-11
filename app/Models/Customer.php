@@ -125,6 +125,21 @@ class Customer extends Model
         return $this->hasMany(Task::class)->where('is_completed', false);
     }
 
+    public function appointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function completedAppointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class)->where('is_completed', true);
+    }
+
+    public function incompleteAppointments(): HasMany
+    {
+        return $this->hasMany(Appointment::class)->where('is_completed', false);
+    }
+
     /**
      * Get all of the quotes for the Customer
      *
