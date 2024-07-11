@@ -24,6 +24,8 @@ class TaskResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $modelLabel="Task";
     protected static ?string $pluralModelLabel="Tasks";
+    protected static ?int $navigationSort = 7;
+
 
     public static function form(Form $form): Form
     {

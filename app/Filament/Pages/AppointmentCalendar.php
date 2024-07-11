@@ -12,6 +12,8 @@ class AppointmentCalendar extends Page
     // Custom Navigation Link name
     protected static ?string $navigationLabel = 'Calendario Appuntamenti';
     protected static ?string $title= 'Calendario Appuntamenti';
+    protected static ?int $navigationSort = 4;
+
 
 
     protected static string $view = 'filament.pages.appointment-calendar';

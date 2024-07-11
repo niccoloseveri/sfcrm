@@ -29,7 +29,17 @@ class AppointmentCalendar extends FullCalendarWidget
                 function (Appointment $appointment) : array {
                     $event = EventData::make()
                         ->id($appointment->id)
-                        ->title(html_entity_decode(strip_tags($appointment->description)))
+                        ->title(html_entity_decode(strip_tags($appointment->customer->is_azienda ? $appointment->customer->nome_az : $appointment->customer->first_name . ' ' . $appointment->customer->last_name)))
+
+                        /*
+                    function ($record) {
+                        if($record->customer->is_azienda){
+                            $r = $record->customer->nome_az;
+                        } else $r = $record->customer->first_name . ' ' . $record->customer->last_name;
+                        return $r;
+                    }
+
+                        */
                         ->start(Carbon::createFromFormat('Y-d-m H:i:s',$appointment->due_date->format('Y-d-m').' '.$appointment->due_time->format('H:i:s')))
                         ->end($appointment->due_date);
 

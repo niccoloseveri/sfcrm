@@ -12,6 +12,7 @@ class TaskCalendar extends Page
         // Custom Navigation Link name
         protected static ?string $navigationLabel = 'Calendario Task';
         protected static ?string $title= 'Calendario Task';
+        protected static ?int $navigationSort = 6;
 
 
     protected static string $view = 'filament.pages.task-calendar';

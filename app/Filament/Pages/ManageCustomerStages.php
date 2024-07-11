@@ -15,6 +15,9 @@ class ManageCustomerStages extends Page
     protected static ?string $navigationIcon = 'heroicon-s-queue-list';
 
     protected static string $view = 'filament.pages.manage-customer-stages';
+    protected static ?int $navigationSort = 2;
+
+
 
     // Our Custom heading to be displayed on the page
     protected ?string $heading = 'Lavagna Clienti';

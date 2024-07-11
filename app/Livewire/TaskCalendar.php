@@ -30,7 +30,9 @@ class TaskCalendar extends FullCalendarWidget
                     $event = EventData::make()
                         ->id($task->id)
                         ->title(html_entity_decode(strip_tags($task->description)))
-                        ->start(Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s')))
+                        ->start(
+                            Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s'))
+                            )
                         ->end($task->due_date);
                     if($task->taskcategory != null){
                         $event->backgroundColor($task->taskcategory->color)
