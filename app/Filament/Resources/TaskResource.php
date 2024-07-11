@@ -14,9 +14,13 @@ use App\Filament\Resources\TaskResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TaskResource\RelationManagers;
 use Filament\Notifications\Notification;
+use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\QueryBuilder;
+use Filament\Tables\Filters\QueryBuilder\Constraints\DateConstraint;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
+use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 
 class TaskResource extends Resource
 {
@@ -89,7 +93,7 @@ class TaskResource extends Resource
                         } else $r = $record->customer->first_name . ' ' . $record->customer->last_name;
                         return $r;
                     })
-                    ->searchable(['first_name', 'last_name'])
+                    ->searchable(['first_name', 'last_name','nome_az'])
                     ->sortable(),
                 Tables\Columns\TextColumn::make('employee.name')->label('Impiegato')
                     ->searchable()
@@ -119,7 +123,8 @@ class TaskResource extends Resource
                 Filter::make('not_completed')->query(fn(Builder $query): Builder => $query->where('is_completed',false))->label('Non Completati')->default(true)->toggle(),
                 SelectFilter::make('employee')->label('Impiegato')->relationship(name:'employee',titleAttribute:'name')->preload()->searchable()->multiple()->hidden(!auth()->user()->isAdmin()),
                 //SelectFilter::make('customer')->label('Cliente')->relationship(name:'customer',titleAttribute:"first_name")->options()->preload()->searchable()->multiple()->hidden(!auth()->user()->isAdmin()),
-
+                SelectFilter::make('taskcategory')->label('Categoria')->relationship('taskcategory','name')->preload()->searchable()->multiple(),
+                DateRangeFilter::make('due_date')->label('Scadenza')->withIndicator()
                 /*TernaryFilter::make('is_completed')->label('Completato?')->placeholder('Tutti')->trueLabel('Completati')->falseLabel('Non Completati')
                 ->queries(
                     true: fn (Builder $query) => $query->where('is_completed',true),
