@@ -45,6 +45,7 @@ class TaskCalendar extends FullCalendarWidget
                     if($task->taskcategory != null){
                         $event->backgroundColor($task->taskcategory->color)
                         ->borderColor($task->taskcategory->color)
+                        ->textColor($task->taskcategory->textcolor)
                         ->extraProperties([
                             'eventColor' => $task->taskcategory->color,
                         ]);

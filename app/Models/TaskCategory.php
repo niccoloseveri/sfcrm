@@ -13,7 +13,8 @@ class TaskCategory extends Model
     protected $fillable = [
         'name',
         'description',
-        'color'
+        'color',
+        'textcolor'
     ];
 
     /**
