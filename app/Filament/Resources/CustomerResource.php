@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\QuoteResource\Pages\CreateQuote;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Filament\Resources\CustomerResource\RelationManagers\QuotesRelationManager;
+use App\Models\TaskCategory;
 use Filament\Infolists\Components\Fieldset;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -279,6 +280,13 @@ class CustomerResource extends Resource
                     Tables\Actions\Action::make('Add Task')->label('Aggiungi Task')
                         ->icon('heroicon-s-clipboard-document')
                         ->form([
+                            Forms\Components\Select::make('taskcategory_id')->label('Categoria')
+                                ->preload()
+                                ->searchable()
+
+                                ->options(TaskCategory::all()->pluck('name','id')->unique())
+                                //->relationship('tasks.taskcategory','name')
+                               ,
                             Forms\Components\RichEditor::make('description')->label('Descrizione')
                                 ->required(),
                             Forms\Components\Select::make('user_id')->label('Dipendente')
@@ -290,7 +298,12 @@ class CustomerResource extends Resource
 
                         ])
                         ->action(function (Customer $customer, array $data) {
-                            $customer->tasks()->create($data);
+                            $customer->tasks()->create([
+                                'user_id' => $data['user_id'],
+                                'taskcategory_id' => $data['taskcategory_id'],
+                                'description' => $data['description'],
+                                'due_date' => $data['due_date'],
+                            ]);
 
                             Notification::make()
                                 ->title('Task creato con successo')

@@ -38,7 +38,7 @@ class TaskCalendar extends FullCalendarWidget
                             'cust' => $task->customer->is_azienda == true ? $task->customer->nome_az :$task->customer->first_name.' '.$task->customer->last_name,
                         ])
                         ->start(
-                            Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s'))
+                            $task->due_date
                         )
                         ->end($task->due_date)
                         ->allDay();
