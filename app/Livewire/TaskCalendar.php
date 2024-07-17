@@ -21,6 +21,7 @@ class TaskCalendar extends FullCalendarWidget
         return Task::query()
             ->where('due_date', '>=', $fetchInfo['start'])
             ->where('due_date', '<=', $fetchInfo['end'])
+            ->where('is_completed','=',false)
             ->when(!auth()->user()->isAdmin(), function ($query) {
                 return $query->where('user_id', auth()->id());
             })
@@ -29,11 +30,18 @@ class TaskCalendar extends FullCalendarWidget
                 function (Task $task) : array {
                     $event = EventData::make()
                         ->id($task->id)
-                        ->title(html_entity_decode(strip_tags($task->description)))
+
+                        ->title(strip_tags($task->customer->is_azienda == true ? $task->customer->nome_az :$task->customer->first_name.' '.$task->customer->last_name).' – '. html_entity_decode(strip_tags($task->description)))
+                        //->title(html_entity_decode(strip_tags($task->description)))
+                        ->extendedProps([
+                            'desc' => html_entity_decode(strip_tags($task->description)),
+                            'cust' => $task->customer->is_azienda == true ? $task->customer->nome_az :$task->customer->first_name.' '.$task->customer->last_name,
+                        ])
                         ->start(
                             Carbon::createFromFormat('Y-d-m H:i:s',$task->due_date->format('Y-d-m').' '.$task->due_time->format('H:i:s'))
-                            )
-                        ->end($task->due_date);
+                        )
+                        ->end($task->due_date)
+                        ->allDay();
                     if($task->taskcategory != null){
                         $event->backgroundColor($task->taskcategory->color)
                         ->borderColor($task->taskcategory->color)
@@ -42,6 +50,8 @@ class TaskCalendar extends FullCalendarWidget
                         ]);
 
                     }
+
+
                     return $event->toArray();
 
                 }
@@ -63,7 +73,7 @@ class TaskCalendar extends FullCalendarWidget
         return <<<JS
             function({ event, timeText, isStart, isEnd, isMirror, isPast, isFuture, isToday, el, view }){
                 el.setAttribute("x-tooltip", "tooltip");
-                el.setAttribute("x-data", "{ tooltip: '"+event.title+"' }");
+                el.setAttribute("x-data", "{ tooltip: '"+event.extendedProps.cust+" – "+event.extendedProps.desc+"' }");
             }
         JS;
     }

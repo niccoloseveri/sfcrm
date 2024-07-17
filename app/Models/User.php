@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable implements FilamentUser
 {
@@ -68,6 +69,24 @@ class User extends Authenticatable implements FilamentUser
             $this->load('role');
         }
 
-        return $this->role->name === 'Admin';
+        return $this->role->name === 'Admin' || $this->role->name === 'Developer';
+    }
+
+    function isDev() : bool {
+        if (!$this->relationLoaded('role')) {
+            $this->load('role');
+        }
+
+        return $this->role->name === 'Developer';
+    }
+
+    /**
+     * Get all of the appointments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function appointments(): BelongsToMany
+    {
+        return $this->belongsToMany(Appointment::class,);
     }
 }
