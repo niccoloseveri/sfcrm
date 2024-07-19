@@ -64,7 +64,7 @@ class CustomerResource extends Resource
                     Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
                 ]),
 
-                Forms\Components\DatePicker::make('ultima_fattura')->label('Data ultima fattura')
+                Forms\Components\DatePicker::make('prima_fattura')->label('Data prima fattura')
                 ->hidden(fn (Get $get): bool => !$get('gia_cliente')),
 
 

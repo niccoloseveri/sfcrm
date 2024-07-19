@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('customers', function (Blueprint $table) {
             //
             $table->boolean('gia_cliente')->default(false)->nullable()->after('description');
-            $table->date('ultima_fattura')->nullable()->after('gia_cliente');
+            $table->date('prima_fattura')->nullable()->after('gia_cliente');
 
         });
     }
