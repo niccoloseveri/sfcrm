@@ -57,10 +57,16 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live(),
+                Forms\Components\Toggle::make('gia_cliente')->label('Già cliente?')->live(),
+
                 Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->searchable()->preload()->createOptionForm([
                     Forms\Components\TextInput::make('name')->label('Nome')->required(),
                     Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
                 ]),
+
+                Forms\Components\DatePicker::make('ultima_fattura')->label('Data ultima fattura')
+                ->hidden(fn (Get $get): bool => !$get('gia_cliente')),
+
 
                 Forms\Components\Section::make('Informazioni Dipendente')
                     ->schema([
@@ -236,6 +242,7 @@ class CustomerResource extends Resource
             ])->defaultPaginationPageOption(25)
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
+                Filter::make('gia_cliente')->label('Già cliente')->query(fn (Builder $query): Builder => $query->where('gia_cliente', true))->toggle(),
                 SelectFilter::make('settore')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->preload()->searchable()->multiple(),
                 SelectFilter::make('pipelineStage')->label('Step Pipeline')->relationship(name:'pipelineStage',titleAttribute:'name')->preload()->searchable()->multiple(),
 

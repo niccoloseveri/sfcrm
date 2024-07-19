@@ -20,6 +20,8 @@ class Customer extends Model
         'email',
         'phone_number',
         'description',
+        'gia_cliente',
+        'ultima_fattura',
         'lead_source_id',
         'pipeline_stage_id',
         'employee_id',
@@ -48,6 +50,10 @@ class Customer extends Model
         'via_c',
         'note_spedizione',
         'settore_id',
+    ];
+
+    protected $casts = [
+        'ultima_fattura' => 'date',
     ];
 
     public function leadSource(): BelongsTo

@@ -69,7 +69,7 @@ class TaskResource extends Resource
                     ->maxLength(65535)
                     ->columnSpanFull(),
                 Forms\Components\DatePicker::make('due_date')->label('Data Scadenza'),
-                Forms\Components\TimePicker::make('due_time')->label('Ora Scadenza')->default('00:00:00'),
+                //Forms\Components\TimePicker::make('due_time')->label('Ora Scadenza')->default('00:00:00'),
 
                 Forms\Components\Toggle::make('is_completed')->label('Completato?')
                     ->required(),
@@ -133,7 +133,7 @@ class TaskResource extends Resource
                 ),
                 */
 
-            ])
+            ])//->persistFiltersInSession()
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('Complete')->label('Completa')

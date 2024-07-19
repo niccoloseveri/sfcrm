@@ -16,6 +16,11 @@ class TaskCalendar extends FullCalendarWidget
 
     public Model | string | null $model = Task::class;
 
+    public function headerActions(): array
+    {
+        return [];
+    }
+
     public function fetchEvents(array $fetchInfo): array
     {
         return Task::query()
