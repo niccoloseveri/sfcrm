@@ -21,7 +21,7 @@ class Customer extends Model
         'phone_number',
         'description',
         'gia_cliente',
-        'ultima_fattura',
+        'prima_fattura',
         'lead_source_id',
         'pipeline_stage_id',
         'employee_id',
@@ -53,7 +53,7 @@ class Customer extends Model
     ];
 
     protected $casts = [
-        'ultima_fattura' => 'date',
+        'prima_fattura' => 'date',
     ];
 
     public function leadSource(): BelongsTo
