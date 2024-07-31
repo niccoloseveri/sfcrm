@@ -15,6 +15,7 @@ class CreateCustomer extends CreateRecord
         if(!auth()->user()->isAdmin()){
             $data['employee_id'] = auth()->user()->id;
         }
+
         return $data;
     }
 

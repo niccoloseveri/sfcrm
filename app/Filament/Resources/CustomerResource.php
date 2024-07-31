@@ -37,7 +37,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\QuoteResource\Pages\CreateQuote;
 use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Filament\Resources\CustomerResource\RelationManagers\QuotesRelationManager;
+use App\Models\Appointment;
 use App\Models\TaskCategory;
+use Filament\Forms\FormsComponent;
 use Filament\Infolists\Components\Fieldset;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -56,16 +58,22 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live(),
-                Forms\Components\Toggle::make('gia_cliente')->label('Già cliente?')->live(),
+                Forms\Components\Section::make()->schema([
+                    Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live()->onColor('success')
+                    ,
+                    Forms\Components\Toggle::make('gia_cliente')->label('Già cliente?')->live()->onColor('success')
+                    ,
 
-                Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->searchable()->preload()->createOptionForm([
-                    Forms\Components\TextInput::make('name')->label('Nome')->required(),
-                    Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
-                ]),
+                    Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->searchable()->preload()->createOptionForm([
+                        Forms\Components\TextInput::make('name')->label('Nome')->required(),
+                        Forms\Components\Textarea::make('description')->label('Descrizione')->autosize(),
+                    ]),
 
-                Forms\Components\DatePicker::make('prima_fattura')->label('Data prima fattura')
-                ->hidden(fn (Get $get): bool => !$get('gia_cliente')),
+                    Forms\Components\DatePicker::make('prima_fattura')->label('Data prima fattura')
+                    ->hidden(fn (Get $get): bool => !$get('gia_cliente')),
+                ])->columns(),
+
+
 
 
                 Forms\Components\Section::make('Informazioni Dipendente')
@@ -87,7 +95,7 @@ class CustomerResource extends Resource
                     Forms\Components\TextInput::make('cod_univoco')->label('Codice Univoco'),
 
 
-                    Forms\Components\Section::make('Indirizzo Azienda')->schema([
+                    Forms\Components\Fieldset::make('Indirizzo Azienda')->schema([
                         Forms\Components\TextInput::make('stato_az')->label('Nazione'),
                         Forms\Components\TextInput::make('prov_az')->label('Provincia'),
                         Forms\Components\TextInput::make('citta_az')->label('Città'),
@@ -111,27 +119,45 @@ class CustomerResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('phone_number')->label('Telefono')
                             ->maxLength(255),
-                        Forms\Components\Section::make('Informazioni Residenza')->schema([
+                        Forms\Components\Fieldset::make('Informazioni Residenza')->schema([
                             Forms\Components\TextInput::make('stato_r')->label('Nazione Residenza'),
                             Forms\Components\TextInput::make('prov_r')->label('Provincia Residenza'),
                             Forms\Components\TextInput::make('citta_r')->label('Città Residenza'),
                             Forms\Components\TextInput::make('cap_r')->label('CAP Residenza'),
                             Forms\Components\TextInput::make('via_r')->label('Via Residenza'),
                         ])->columns(),
-                        Forms\Components\Section::make('Indirizzo di Consegna')->schema([
-                            Forms\Components\TextInput::make('stato_c')->label('Nazione Spedizione'),
-                            Forms\Components\TextInput::make('prov_c')->label('Provincia Spedizione'),
-                            Forms\Components\TextInput::make('citta_c')->label('Città Spedizione'),
-                            Forms\Components\TextInput::make('cap_c')->label('CAP Spedizione'),
-                            Forms\Components\TextInput::make('via_c')->label('Via Spedizione'),
-                            Forms\Components\Textarea::make('note_spedizione')->label('Note per la spedizione'),
-                        ])->columns(),
+
                         Forms\Components\RichEditor::make('description')->label('Descrizione')
                             ->maxLength(65535)
 
                             ->columnSpanFull(),
                     ])
                     ->columns(),
+                Forms\Components\Section::make('Fatturazione e Spedizione')->label('Fatturazione e Consegna')
+                    ->schema([
+                        Forms\Components\Fieldset::make('Indirizzo di Fatturazione')->schema([
+                            Forms\Components\TextInput::make('stato_f')->label('Nazione'),
+                            Forms\Components\TextInput::make('prov_f')->label('Provincia'),
+                            Forms\Components\TextInput::make('citta_f')->label('Città'),
+                            Forms\Components\TextInput::make('cap_f')->label('CAP'),
+                            Forms\Components\TextInput::make('via_f')->label('Via')->columnSpanFull(),
+                        ])->columnSpan(1),
+
+                        Forms\Components\Fieldset::make('Indirizzo di Spedizione')->schema([
+                            Forms\Components\Checkbox::make('same_as_fatt')->label('Usa indirizzo di Fatturazione')->columnSpanFull()
+                            ->live()->default(true),
+
+                            Forms\Components\Group::make([
+                                Forms\Components\TextInput::make('stato_c')->label('Nazione'),
+                                Forms\Components\TextInput::make('prov_c')->label('Provincia'),
+                                Forms\Components\TextInput::make('citta_c')->label('Città'),
+                                Forms\Components\TextInput::make('cap_c')->label('CAP'),
+                                Forms\Components\TextInput::make('via_c')->label('Via')->columnSpanFull(),
+                            ])->columnSpanFull()->columns(2)->hidden(fn (Get $get) => $get('same_as_fatt')),
+                            Forms\Components\Textarea::make('note_spedizione')->label('Note')->columnSpanFull(),
+
+                        ])->columnSpan(1),
+                        ])->columns(2),
                 Forms\Components\Section::make('Dettagli Lead')->label('Dettagli Lead')
                     ->schema([
                         Forms\Components\Select::make('lead_source_id')->label('Fonte Lead')
@@ -459,7 +485,8 @@ class CustomerResource extends Resource
                             ->view('infolists.components.pipeline-stage-history-list')
                     ])
                     ->collapsible(),
-                Tabs::make('Tasks')->activeTab(2)
+                Section::make('Tasks')->schema([
+                Tabs::make('Tasks')->label('Tasks')->activeTab(2)
                     ->tabs([
                         Tabs\Tab::make('Completed')->label('Completati')
                             ->badge(fn ($record) => $record->completedTasks->count())
@@ -525,6 +552,76 @@ class CustomerResource extends Resource
                             ])
                     ])
                     ->columnSpanFull(),
+                ]),
+                Section::make('Appointments')->heading('Appuntamenti')->schema([
+                    Tabs::make('Appointments')->activeTab(2)
+                        ->tabs([
+                            Tabs\Tab::make('Completed')->label('Completati')
+                                ->badge(fn ($record) => $record->completedAppointments->count())
+                                ->schema([
+                                    RepeatableEntry::make('completedAppointments')
+                                    ->hiddenLabel()
+                                    ->schema([
+                                        TextEntry::make('description')->label('Descrizione')
+                                        ->html()
+                                        ->columnSpanFull(),
+                                    TextEntry::make('employee.name')->label('Referente')
+                                        ->hidden(fn ($state) => is_null($state)),
+                                    TextEntry::make('due_date')->label('Data Scadenza')
+                                        ->hidden(fn ($state) => is_null($state))
+                                        ->date('d/m/Y'),
+                                    TextEntry::make('due_time')->label('Ora Scadenza')
+                                        ->hidden(fn ($state) => is_null($state))
+                                        ->date('H:i'),
+                                    ])
+                                    ->columns(3)
+                                ]),
+                            Tabs\Tab::make('Incomplete')->label('Incompleti')
+                                ->badge(fn ($record) => $record->incompleteAppointments->count())
+                                ->schema([
+                                    RepeatableEntry::make('incompleteAppointments')
+                                    ->hiddenLabel()
+                                    ->schema([
+                                        TextEntry::make('description')->label('Descrizione')
+                                            ->html()
+                                            ->columnSpanFull(),
+                                        TextEntry::make('employee.name')->label('Commerciale')
+                                            ->hidden(fn ($state) => is_null($state)),
+                                        TextEntry::make('due_date')->label('Data Scadenza')
+                                            ->hidden(fn ($state) => is_null($state))
+                                            ->date('d/m/Y'),
+                                        TextEntry::make('due_time')->label('Ora Scadenza')
+                                            ->hidden(fn ($state) => is_null($state))
+                                            ->date('H:i'),
+                                        TextEntry::make('is_completed')->label('Completo?')
+                                            ->formatStateUsing(function ($state) {
+                                                return $state ? 'Yes' : 'No';
+                                            })
+                                            ->suffixAction(
+                                                Action::make('complete')
+                                                    ->label('Completa')
+                                                    ->button()
+                                                    ->requiresConfirmation()
+                                                    ->modalHeading('Segnala appuntamento completato')
+                                                    ->modalDescription("Sei sicuro di aver completato l'appuntamento?")
+                                                    ->action(function (Appointment $record) {
+                                                        $record->is_completed = true;
+                                                        $record->save();
+
+                                                        Notification::make()
+                                                            ->title('Appuntamento Completato.')
+                                                            ->success()
+                                                            ->send();
+                                                    })
+                                            ),
+                                    ])
+                                    ->columns(4)
+                                ])
+                        ]),
+
+
+                ]),
+
             ]);
     }
 

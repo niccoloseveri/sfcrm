@@ -23,6 +23,7 @@ class TaskCalendar extends FullCalendarWidget
 
     public function fetchEvents(array $fetchInfo): array
     {
+        dump($fetchInfo);
         return Task::query()
             ->where('due_date', '>=', $fetchInfo['start'])
             ->where('due_date', '<=', $fetchInfo['end'])

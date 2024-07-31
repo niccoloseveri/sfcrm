@@ -48,6 +48,12 @@ class Customer extends Model
         'citta_c',
         'cap_c',
         'via_c',
+        'stato_f',
+        'prov_f',
+        'citta_f',
+        'cap_f',
+        'via_f',
+        'same_as_fatt',
         'note_spedizione',
         'settore_id',
     ];
