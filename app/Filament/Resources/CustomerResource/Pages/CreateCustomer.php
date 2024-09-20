@@ -15,6 +15,13 @@ class CreateCustomer extends CreateRecord
         if(!auth()->user()->isAdmin()){
             $data['employee_id'] = auth()->user()->id;
         }
+        if($data['same_as_fatt' == true]){
+            $data['stato_c'] = $data['stato_f'];
+            $data['prov_c'] = $data['prov_f'];
+            $data['citta_c'] = $data['citta_f'];
+            $data['cap_c'] = $data['cap_f'];
+            $data['via_c'] = $data['via_f'];
+        }
 
         return $data;
     }
