@@ -67,6 +67,12 @@ class AppointmentResource extends Resource
             Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
                 ->boolean()
                 ->sortable(),
+            Tables\Columns\TextColumn::make('due_date')->label('Data Appuntamento')
+                ->date()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('due_time')->label('Ora Appuntamento')
+                ->time()
+                ->sortable(),
             Tables\Columns\TextColumn::make('customer.first_name')->label('Cliente')
                 ->formatStateUsing(function ($record) {
                     if($record->customer->is_azienda){
@@ -82,12 +88,7 @@ class AppointmentResource extends Resource
                 ->hidden(!auth()->user()->isAdmin()),
             Tables\Columns\TextColumn::make('description')->label('Descrizione')
                 ->html(),
-            Tables\Columns\TextColumn::make('due_date')->label('Data Appuntamento')
-                ->date()
-                ->sortable(),
-            Tables\Columns\TextColumn::make('due_time')->label('Ora Appuntamento')
-                ->time()
-                ->sortable(),
+
 
             Tables\Columns\TextColumn::make('created_at')->label('Creato')
                 ->dateTime()
@@ -120,9 +121,9 @@ class AppointmentResource extends Resource
                     })
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //Tables\Actions\BulkActionGroup::make([
+                //    Tables\Actions\DeleteBulkAction::make(),
+                //]),
             ])
             ->defaultSort(function ($query) {
                 return $query->orderBy('due_date', 'desc')
