@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TaskResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\TaskResource\RelationManagers;
+use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Filament\Notifications\Notification;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\Filter;
@@ -80,9 +81,11 @@ class TaskResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
-                    ->boolean()
-                    ->sortable(),
+                ToggleIconColumn::make('is_completed')->label('Completo?')
+                    ->sortable()
+                    ->alignCenter()
+                    ->onColor('success')
+                    ->offColor('danger'),
                 Tables\Columns\TextColumn::make('due_date')->label('Data Scadenza')
                     ->date()
                     ->sortable(),
@@ -152,9 +155,11 @@ class TaskResource extends Resource
                     })
             ])
             ->bulkActions([
+                /*
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+                */
             ])
             ->defaultSort(function ($query) {
                 return $query->orderBy('due_date', 'asc')

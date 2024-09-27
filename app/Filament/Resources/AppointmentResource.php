@@ -6,6 +6,7 @@ use App\Filament\Resources\AppointmentResource\Pages;
 use App\Filament\Resources\AppointmentResource\RelationManagers;
 use App\Models\Appointment;
 use App\Models\Customer;
+use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -64,9 +65,11 @@ class AppointmentResource extends Resource
     {
         return $table
         ->columns([
-            Tables\Columns\IconColumn::make('is_completed')->label('Completo?')
-                ->boolean()
-                ->sortable(),
+            ToggleIconColumn::make('is_completed')->label('Completo?')
+            ->sortable()
+            ->alignCenter()
+            ->onColor('success')
+            ->offColor('danger'),
             Tables\Columns\TextColumn::make('due_date')->label('Data Appuntamento')
                 ->date()
                 ->sortable(),
