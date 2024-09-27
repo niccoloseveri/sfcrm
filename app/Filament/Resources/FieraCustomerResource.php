@@ -43,7 +43,7 @@ class FieraCustomerResource extends Resource
                     Forms\Components\Toggle::make('gia_cliente')->label('Già cliente?')->live()->onColor('success')
                     ,
 
-                    Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->default(1),
+                    Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->default(8),
 
                     Forms\Components\DatePicker::make('prima_fattura')->label('Data prima fattura')
                     ->hidden(fn (Get $get): bool => !$get('gia_cliente')),
