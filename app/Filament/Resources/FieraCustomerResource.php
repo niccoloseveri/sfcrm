@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\FieraCustomer;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -36,6 +37,31 @@ class FieraCustomerResource extends Resource
         return $form
             ->schema([
                 //
+                Forms\Components\Section::make()->schema([
+                    Forms\Components\Toggle::make('is_azienda')->label('Azienda?')->live()->onColor('success')
+                    ,
+                    Forms\Components\Toggle::make('gia_cliente')->label('Già cliente?')->live()->onColor('success')
+                    ,
+
+                    Forms\Components\Select::make('settore_id')->label('Tipologia')->relationship(name:'settore',titleAttribute:'name')->default(2),
+
+                    Forms\Components\DatePicker::make('prima_fattura')->label('Data prima fattura')
+                    ->hidden(fn (Get $get): bool => !$get('gia_cliente')),
+                ])->columns(),
+                Forms\Components\TextInput::make('nome_az')->label('Nome Azienda - Ragione Sociale')->columnSpanFull()->hidden(fn (Get $get): bool => !$get('is_azienda')),
+
+                Forms\Components\TextInput::make('first_name')->label('Nome')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('last_name')->label('Cognome')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('email')->label('Email')
+                    ->email()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('phone_number')->label('Telefono')
+                    ->maxLength(255),
+                Forms\Components\RichEditor::make('description')->label('Descrizione')
+                    ->maxLength(65535)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -43,6 +69,26 @@ class FieraCustomerResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('first_name')
+                    ->label('Cliente')
+                    //->hidden(fn ($record) : Bool => $record->is_azienda)
+                    ->formatStateUsing(function ($record) {
+                        //dd($record->is_azienda);
+                        $tagsList = view('customer.tagsList', ['tags' => $record->tags])->render();
+                        if($record->is_azienda){
+                            $record->first_name = '';
+                            $record->last_name = $record->nome_az;
+                        }
+                        return $record->first_name . ' ' . $record->last_name . ' ' . $tagsList;
+                    })
+                    ->html()
+                    ->searchable(['first_name', 'last_name','nome_az'])
+                    ,
+                Tables\Columns\TextColumn::make('email')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('phone_number')
+                    ->searchable()
+                    ->label('Telefono'),
                 //
             ])
             ->filters([
