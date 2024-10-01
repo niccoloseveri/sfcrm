@@ -54,6 +54,8 @@ class CustomerResource extends Resource
     protected static ?string $modelLabel="Cliente";
     protected static ?string $pluralModelLabel="Clienti";
 
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -646,12 +648,16 @@ class CustomerResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         if(auth()->user()->isAdmin()){
-            return parent::getEloquentQuery()
+            return parent::getEloquentQuery()->whereDoesntHave('settore',function (Builder $query){
+                $query->where('name','like','fiera');
+            })
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
         } else
-        return parent::getEloquentQuery()->whereRelation('employee','employee_id', '=', auth()->user()->id )
+        return parent::getEloquentQuery()->whereRelation('employee','employee_id', '=', auth()->user()->id )->whereDoesntHave('settore',function (Builder $query){
+            $query->where('name','like','fiera');
+        })
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);

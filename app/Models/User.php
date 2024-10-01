@@ -15,10 +15,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Edwink\FilamentUserActivity\Traits\UserActivityTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use \LaraZeus\Thunder\Concerns\ManageOffice;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable, UserActivityTrait;
+    use HasApiTokens, HasFactory, Notifiable, UserActivityTrait, ManageOffice;
 
     /**
      * The attributes that are mass assignable.
@@ -78,6 +79,38 @@ class User extends Authenticatable implements FilamentUser
         }
 
         return $this->role->name === 'Developer';
+    }
+
+    function isCustomer() : bool {
+        if (!$this->relationLoaded('role')) {
+            $this->load('role');
+        }
+
+        return $this->role->name === 'Customer';
+    }
+
+    function isAssistente() : bool {
+        if (!$this->relationLoaded('role')) {
+            $this->load('role');
+        }
+
+        return $this->role->name === 'Assistente';
+    }
+
+    function isPt() : bool {
+        if (!$this->relationLoaded('role')) {
+            $this->load('role');
+        }
+
+        return $this->role->name === 'Personal Trainer';
+    }
+
+    function isEmployee() : bool {
+        if (!$this->relationLoaded('role')) {
+            $this->load('role');
+        }
+
+        return $this->role->name === 'Employee';
     }
 
     /**

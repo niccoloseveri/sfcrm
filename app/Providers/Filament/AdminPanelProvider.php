@@ -17,9 +17,12 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\SpatieLaravelTranslatablePlugin;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Thunder\ThunderPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -49,7 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 \TomatoPHP\FilamentNotes\Filament\Widgets\NotesWidget::class,
 
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                //Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -72,9 +75,15 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
+                SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
                 \TomatoPHP\FilamentNotes\FilamentNotesPlugin::make(),
                 FilamentFullCalendarPlugin::make(),
                 FilamentUserActivityPlugin::make(),
+                BoltPlugin::make()
+        ->extensions([
+            \LaraZeus\Thunder\Extensions\Thunder::class,
+        ]),
+    ThunderPlugin::make()
 
             ]);
     }

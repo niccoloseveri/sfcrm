@@ -13,6 +13,7 @@
         "edwink/filament-user-activity": "^1.0",
         "filament/filament": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
+        "lara-zeus/thunder": "^3.1",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
@@ -73,6 +74,13 @@
             "php-http/discovery": true
         }
     },
+    "repositories": [
+        {
+          "type": "composer",
+          "url": "https://composer.larazeus.com"
+        }
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true
+
 }
