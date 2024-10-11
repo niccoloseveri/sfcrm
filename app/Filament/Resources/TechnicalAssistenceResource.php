@@ -47,7 +47,7 @@ class TechnicalAssistenceResource extends Resource
             Forms\Components\Select::make('user_id')->label('Assistente')
                 ->preload()
                 ->searchable()
-                ->relationship('assistente', 'name', fn (Builder $query) => $query->whereHas('role', fn (Builder $query) => $query->where('name','like','assistente'))),
+                ->relationship('assistente', 'name', fn (Builder $query) => $query->whereHas('role', fn (Builder $query) => $query->where('name','like','assistente')->orWhere('name','like','admin'))),
 
 
             Forms\Components\RichEditor::make('description')->label('Descrizione')
