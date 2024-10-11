@@ -94,7 +94,7 @@ class User extends Authenticatable implements FilamentUser
             $this->load('role');
         }
 
-        return $this->role->name === 'Assistente';
+        return $this->role->name === 'Assistente' || $this->role->name === 'Admin';
     }
 
     function isPt() : bool {
