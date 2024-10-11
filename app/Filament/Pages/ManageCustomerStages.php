@@ -24,6 +24,8 @@ class ManageCustomerStages extends Page
     // Custom Navigation Link name
     protected static ?string $navigationLabel = 'Lavagna Clienti';
     protected static ?string $title= 'Lavagna Clienti';
+    protected static ?string $navigationGroup="Clienti";
+
 
 
     // We will be listening for the `statusChangeEvent` event to update the record status

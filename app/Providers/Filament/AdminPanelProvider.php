@@ -66,9 +66,34 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->navigationGroups([
+
+                NavigationGroup::make()
+                    ->label('Clienti')
+                    //->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Personal Trainer')
+                    //->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Assistenza')
+                    //->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Prodotti')
+                    //->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('Impostazioni')
                     ->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Thunder')
+                    //->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Bolt')
+                    //->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
             ->authMiddleware([

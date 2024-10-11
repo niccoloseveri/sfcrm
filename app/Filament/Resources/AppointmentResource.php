@@ -24,6 +24,8 @@ class AppointmentResource extends Resource
     protected static ?string $modelLabel="Appuntamento";
     protected static ?string $pluralModelLabel="Appuntamenti";
     protected static ?int $navigationSort = 5;
+    protected static ?string $navigationGroup="Clienti";
+
 
     public static function form(Form $form): Form
     {

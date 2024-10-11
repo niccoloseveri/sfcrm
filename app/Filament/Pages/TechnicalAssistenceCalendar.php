@@ -12,6 +12,8 @@ class TechnicalAssistenceCalendar extends Page
     // Custom Navigation Link name
     protected static ?string $navigationLabel = 'Calendario Assistenza';
     protected static ?string $title= 'Calendario Assistenza';
+    protected static ?int $navigationSort = 10;
+    protected static ?string $navigationGroup="Assistenza";
 
     protected static string $view = 'filament.pages.technical-assistence-calendar';
 }

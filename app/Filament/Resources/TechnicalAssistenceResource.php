@@ -21,6 +21,8 @@ class TechnicalAssistenceResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $modelLabel="Richiesta di Assistenza";
     protected static ?string $pluralModelLabel="Richieste di Assistenza";
+    protected static ?int $navigationSort = 11;
+    protected static ?string $navigationGroup="Assistenza";
 
     public static function form(Form $form): Form
     {

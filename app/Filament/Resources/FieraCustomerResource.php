@@ -23,6 +23,8 @@ class FieraCustomerResource extends Resource
 
     protected static ?string $modelLabel="Cliente Fiera";
     protected static ?string $pluralModelLabel="Clienti Fiera";
+    protected static ?string $navigationGroup="Clienti";
+    protected static ?int $navigationSort = 15;
 
 
     public static function getEloquentQuery(): Builder

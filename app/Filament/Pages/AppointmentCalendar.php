@@ -10,6 +10,8 @@ class AppointmentCalendar extends Page
     // Our Custom heading to be displayed on the page
     protected ?string $heading = 'Calendario Appuntamenti';
     // Custom Navigation Link name
+    protected static ?string $navigationGroup="Clienti";
+
     protected static ?string $navigationLabel = 'Calendario Appuntamenti';
     protected static ?string $title= 'Calendario Appuntamenti';
     protected static ?int $navigationSort = 4;

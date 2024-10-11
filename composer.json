@@ -11,6 +11,7 @@
         "php": "^8.1",
         "archilex/filament-toggle-icon-column": "^3.1",
         "edwink/filament-user-activity": "^1.0",
+        "eightynine/filament-excel-import": "^3.1",
         "filament/filament": "^3.0",
         "guzzlehttp/guzzle": "^7.2",
         "lara-zeus/thunder": "^3.1",

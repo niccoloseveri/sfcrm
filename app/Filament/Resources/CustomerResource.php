@@ -50,7 +50,7 @@ class CustomerResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?int $navigationSort = 3;
-
+    protected static ?string $navigationGroup="Clienti";
     protected static ?string $modelLabel="Cliente";
     protected static ?string $pluralModelLabel="Clienti";
 

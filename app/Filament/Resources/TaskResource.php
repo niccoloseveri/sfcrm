@@ -30,6 +30,8 @@ class TaskResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $modelLabel="Task";
     protected static ?string $pluralModelLabel="Tasks";
+    protected static ?string $navigationGroup="Clienti";
+
     protected static ?int $navigationSort = 7;
 
 

@@ -10,6 +10,8 @@ class TaskCalendar extends Page
         // Our Custom heading to be displayed on the page
         protected ?string $heading = 'Calendario Task';
         // Custom Navigation Link name
+        protected static ?string $navigationGroup="Clienti";
+
         protected static ?string $navigationLabel = 'Calendario Task';
         protected static ?string $title= 'Calendario Task';
         protected static ?int $navigationSort = 6;

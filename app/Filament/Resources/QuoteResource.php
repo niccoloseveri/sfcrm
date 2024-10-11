@@ -32,7 +32,8 @@ class QuoteResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $modelLabel="Ordine";
     protected static ?string $pluralModelLabel="Ordini";
-    protected static ?int $navigationSort = 9;
+    protected static ?string $navigationGroup="Prodotti";
+    protected static ?int $navigationSort = 13;
 
 
     public static function form(Form $form): Form
