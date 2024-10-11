@@ -83,10 +83,7 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Prodotti')
                     //->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
-                NavigationGroup::make()
-                    ->label('Impostazioni')
-                    ->icon('heroicon-o-cog-6-tooth')
-                    ->collapsed(),
+
                 NavigationGroup::make()
                     ->label('Thunder')
                     //->icon('heroicon-o-cog-6-tooth')
@@ -94,6 +91,10 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Bolt')
                     //->icon('heroicon-o-cog-6-tooth')
+                    ->collapsed(),
+                NavigationGroup::make()
+                    ->label('Impostazioni')
+                    ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
             ->authMiddleware([
