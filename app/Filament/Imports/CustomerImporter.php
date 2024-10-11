@@ -14,95 +14,38 @@ class CustomerImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            ImportColumn::make('first_name')
+            ImportColumn::make('first_name')->exampleHeader('Nome')
                 ->rules(['max:255']),
-            ImportColumn::make('last_name')
+            ImportColumn::make('last_name')->exampleHeader('Cognome')
                 ->rules(['max:255']),
             ImportColumn::make('email')
                 ->rules(['email', 'max:255']),
-            ImportColumn::make('phone_number')
+            ImportColumn::make('phone_number')->exampleHeader('Telefono')
                 ->rules(['max:255']),
-            ImportColumn::make('description'),
-            ImportColumn::make('gia_cliente')
-                ->boolean()
-                ->rules(['boolean']),
-            ImportColumn::make('prima_fattura')
-                ->rules(['date']),
-            ImportColumn::make('is_azienda')
-                ->requiredMapping()
-                ->boolean()
-                ->rules(['required', 'boolean']),
-            ImportColumn::make('nome_az')
+            ImportColumn::make('description')->exampleHeader('Descrizione'),
+            ImportColumn::make('citta_r')->exampleHeader('Città')
                 ->rules(['max:255']),
-            ImportColumn::make('rag_sociale')
+            ImportColumn::make('prov_r')->exampleHeader('Provincia')
                 ->rules(['max:255']),
-            ImportColumn::make('cf_azienda')
+            ImportColumn::make('via_r')->exampleHeader('Via')
                 ->rules(['max:255']),
-            ImportColumn::make('piva')
+            ImportColumn::make('cap_r')->exampleHeader('CAP')
                 ->rules(['max:255']),
-            ImportColumn::make('email_az')
-                ->rules(['email', 'max:255']),
-            ImportColumn::make('tel_az')
+            ImportColumn::make('stato_r')->exampleHeader('Stato')
                 ->rules(['max:255']),
-            ImportColumn::make('website')
+            ImportColumn::make('nome_az')->exampleHeader('Nome Azienda')
                 ->rules(['max:255']),
-            ImportColumn::make('citta_az')
+            ImportColumn::make('citta_az')->exampleHeader('Città Azienda')
                 ->rules(['max:255']),
-            ImportColumn::make('prov_az')
+            ImportColumn::make('prov_az')->exampleHeader('Provincia Azienda')
                 ->rules(['max:255']),
-            ImportColumn::make('via_az')
+            ImportColumn::make('via_az')->exampleHeader('Via Azienda')
                 ->rules(['max:255']),
-            ImportColumn::make('cap_az')
+            ImportColumn::make('cap_az')->exampleHeader('CAP Azienda')
                 ->rules(['max:255']),
-            ImportColumn::make('stato_az')
+            ImportColumn::make('stato_az')->exampleHeader('Stato Azienda')
                 ->rules(['max:255']),
-            ImportColumn::make('cod_univoco')
-                ->rules(['max:255']),
-            ImportColumn::make('cf')
-                ->rules(['max:255']),
-            ImportColumn::make('citta_r')
-                ->rules(['max:255']),
-            ImportColumn::make('prov_r')
-                ->rules(['max:255']),
-            ImportColumn::make('via_r')
-                ->rules(['max:255']),
-            ImportColumn::make('cap_r')
-                ->rules(['max:255']),
-            ImportColumn::make('stato_r')
-                ->rules(['max:255']),
-            ImportColumn::make('citta_c')
-                ->rules(['max:255']),
-            ImportColumn::make('prov_c')
-                ->rules(['max:255']),
-            ImportColumn::make('via_c')
-                ->rules(['max:255']),
-            ImportColumn::make('cap_c')
-                ->rules(['max:255']),
-            ImportColumn::make('stato_c')
-                ->rules(['max:255']),
-            ImportColumn::make('citta_f')
-                ->rules(['max:255']),
-            ImportColumn::make('prov_f')
-                ->rules(['max:255']),
-            ImportColumn::make('via_f')
-                ->rules(['max:255']),
-            ImportColumn::make('cap_f')
-                ->rules(['max:255']),
-            ImportColumn::make('stato_f')
-                ->rules(['max:255']),
-            ImportColumn::make('same_as_fatt')
-                ->boolean()
-                ->rules(['boolean']),
-            ImportColumn::make('note_spedizione'),
-            ImportColumn::make('altreinfo'),
-            ImportColumn::make('settore')
-                ->relationship(),
-            ImportColumn::make('leadSource')
-                ->relationship(),
-            ImportColumn::make('pipelineStage')
-                ->relationship(),
-            ImportColumn::make('employee')
-                ->relationship(),
+            ImportColumn::make('altreinfo')->exampleHeader('Info'),
         ];
     }
 
