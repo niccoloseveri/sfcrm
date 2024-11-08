@@ -30,7 +30,7 @@ class FieraCustomerResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->whereHas('settore', function (Builder $query){
-            $query->where('name', 'like','fiera');
+            $query->where('name', 'like','%fiera%');
         });
     }
 
