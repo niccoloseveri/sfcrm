@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\CustomerResource\Pages;
 
 use App\Filament\Resources\CustomerResource;
+use App\Mail\NewCustomer;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Mail;
 
 class CreateCustomer extends CreateRecord
 {
@@ -24,6 +26,11 @@ class CreateCustomer extends CreateRecord
         }
 
         return $data;
+    }
+
+    protected function afterCreate() : void {
+        $customer = $this->record;
+        Mail::to("niccoloseveri@gmail.com")->send(new NewCustomer($customer));
     }
 
     /*protected function getRedirectUrl(): string
