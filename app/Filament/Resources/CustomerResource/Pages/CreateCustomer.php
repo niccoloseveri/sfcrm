@@ -30,7 +30,7 @@ class CreateCustomer extends CreateRecord
 
     protected function afterCreate() : void {
         $customer = $this->record;
-        Mail::to(env('MAIL_AD_DEF','niccoloseveri@gmail.com'))->send(new NewCustomer($customer));
+        Mail::to(env('MAIL_AD_DEF','mp.ponti84@gmail.com'))->send(new NewCustomer($customer));
     }
 
     /*protected function getRedirectUrl(): string
