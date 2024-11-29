@@ -14,11 +14,13 @@ class CustomerImporter extends Importer
     public static function getColumns(): array
     {
         return [
+            ImportColumn::make('gia_cliente')->exampleHeader('Già Cliente? (S/N)')
+            ->rules(['max:255']),
             ImportColumn::make('first_name')->exampleHeader('Nome')
                 ->rules(['max:255']),
             ImportColumn::make('last_name')->exampleHeader('Cognome')
                 ->rules(['max:255']),
-            ImportColumn::make('email')
+            ImportColumn::make('email')->exampleHeader('Email')
                 ->rules(['email', 'max:255']),
             ImportColumn::make('phone_number')->exampleHeader('Telefono')
                 ->rules(['max:255']),
@@ -35,6 +37,18 @@ class CustomerImporter extends Importer
                 ->rules(['max:255']),
             ImportColumn::make('nome_az')->exampleHeader('Nome Azienda')
                 ->rules(['max:255']),
+            ImportColumn::make('cf_azienda')->exampleHeader('Codice Fiscale Az.')
+                ->rules(['max:255']),
+            ImportColumn::make('piva')->exampleHeader('Partita IVA')
+                ->rules(['max:255']),
+            ImportColumn::make('email_az')->exampleHeader('Email Az.')
+                ->rules(['max:255']),
+            ImportColumn::make('tel_az')->exampleHeader('Telefono Az.')
+                ->rules(['max:255']),
+            ImportColumn::make('website')->exampleHeader('Sito Web')
+                ->rules(['max:255']),
+            ImportColumn::make('cod_univoco')->exampleHeader('Codice Univoco')
+                ->rules(['max:255']),
             ImportColumn::make('citta_az')->exampleHeader('Città Azienda')
                 ->rules(['max:255']),
             ImportColumn::make('prov_az')->exampleHeader('Provincia Azienda')
@@ -48,6 +62,8 @@ class CustomerImporter extends Importer
             ImportColumn::make('altreinfo')->exampleHeader('Info'),
         ];
     }
+
+
 
     public function resolveRecord(): ?Customer
     {
