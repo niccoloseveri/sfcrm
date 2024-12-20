@@ -267,7 +267,7 @@ class CustomerResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->deferLoading()->defaultPaginationPageOption(25)
+            ])->deferLoading()->paginated([10, 25, 50, 100])
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
                 Filter::make('gia_cliente')->label('Già cliente')->query(fn (Builder $query): Builder => $query->where('gia_cliente', true))->toggle(),

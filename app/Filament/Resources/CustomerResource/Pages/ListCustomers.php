@@ -69,8 +69,10 @@ class ListCustomers extends ListRecords
         return $tabs;
     }
 
+    /*
     protected function paginateTableQuery(EloquentBuilder $query): Paginator|CursorPaginator
     {
         return $query->simplePaginate(50);
     }
+    */
 }
