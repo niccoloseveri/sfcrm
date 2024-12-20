@@ -14,7 +14,7 @@ class CustomerImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            /*ImportColumn::make('gia_cliente')->exampleHeader('Già Cliente? (S/N)')
+            ImportColumn::make('gia_cliente')->exampleHeader('Già Cliente? (S/N)')
             ->rules(['max:255']),
             ImportColumn::make('first_name')->exampleHeader('Nome')
                 ->rules(['max:255']),
@@ -34,7 +34,7 @@ class CustomerImporter extends Importer
             ImportColumn::make('cap_r')->exampleHeader('CAP')
                 ->rules(['max:255']),
             ImportColumn::make('stato_r')->exampleHeader('Stato')
-                ->rules(['max:255']),*/
+                ->rules(['max:255']),
             ImportColumn::make('nome_az')->exampleHeader('Nome Azienda')
                 ->rules(['max:255']),
             ImportColumn::make('cf_azienda')->exampleHeader('Codice Fiscale Az.')
