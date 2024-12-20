@@ -267,7 +267,7 @@ class CustomerResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])->defaultPaginationPageOption(25)
+            ])->deferLoading()->defaultPaginationPageOption(25)
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
                 Filter::make('gia_cliente')->label('Già cliente')->query(fn (Builder $query): Builder => $query->where('gia_cliente', true))->toggle(),
@@ -647,6 +647,7 @@ class CustomerResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+
         if(auth()->user()->isAdmin()){
             return parent::getEloquentQuery()->whereDoesntHave('settore',function (Builder $query){
                 $query->where('name','like','fiera');

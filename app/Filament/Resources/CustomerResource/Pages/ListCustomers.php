@@ -6,8 +6,12 @@ use App\Filament\Resources\CustomerResource;
 use App\Models\Customer;
 use App\Models\PipelineStage;
 use Filament\Actions;
+use Filament\Forms\Components\Builder;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class ListCustomers extends ListRecords
 {
@@ -63,5 +67,10 @@ class ListCustomers extends ListRecords
             });
 
         return $tabs;
+    }
+
+    protected function paginateTableQuery(EloquentBuilder $query): Paginator|CursorPaginator
+    {
+        return $query->simplePaginate(25);
     }
 }

@@ -14,14 +14,14 @@ class CustomerImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            ImportColumn::make('gia_cliente')->exampleHeader('Già Cliente? (S/N)')
+            /*ImportColumn::make('gia_cliente')->exampleHeader('Già Cliente? (S/N)')
             ->rules(['max:255']),
             ImportColumn::make('first_name')->exampleHeader('Nome')
                 ->rules(['max:255']),
             ImportColumn::make('last_name')->exampleHeader('Cognome')
                 ->rules(['max:255']),
             ImportColumn::make('email')->exampleHeader('Email')
-                ->rules(['email', 'max:255']),
+                ->rules(['max:255']),
             ImportColumn::make('phone_number')->exampleHeader('Telefono')
                 ->rules(['max:255']),
             ImportColumn::make('description')->exampleHeader('Descrizione'),
@@ -34,7 +34,7 @@ class CustomerImporter extends Importer
             ImportColumn::make('cap_r')->exampleHeader('CAP')
                 ->rules(['max:255']),
             ImportColumn::make('stato_r')->exampleHeader('Stato')
-                ->rules(['max:255']),
+                ->rules(['max:255']),*/
             ImportColumn::make('nome_az')->exampleHeader('Nome Azienda')
                 ->rules(['max:255']),
             ImportColumn::make('cf_azienda')->exampleHeader('Codice Fiscale Az.')
@@ -63,16 +63,26 @@ class CustomerImporter extends Importer
         ];
     }
 
+    protected function beforeCreate(): void
+    {
+        if($this->data['nome_az']!='' || $this->data['nome_az']!=null ){
+            $this->record['is_azienda']= 1 ;
+            $this->record['settore_id']= 13 ;
+            $this->record['is_azienda'] == 1 ? $this->record['is_azienda'] == 1 : $this->record['is_azienda'] = true;
+        }
 
+    }
 
     public function resolveRecord(): ?Customer
     {
-        // return Customer::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
+        //$u=Customer::where('email','like',$this->data['email'])->orWhere(fn ($q) => $q->where('email_az','like',$this->data['email_az']))->firstOrNew();
+        //return $u;
+        return Customer::firstOrNew([
+            // Update existing records, matching them by `$this->data['column_name']`
+           'email_az' => $this->data['email_az'],
+        ]);
 
-        return new Customer();
+        //return new Customer();
     }
 
     public static function getCompletedNotificationBody(Import $import): string
