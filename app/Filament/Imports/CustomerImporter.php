@@ -67,7 +67,7 @@ class CustomerImporter extends Importer
     {
         // Runs before the CSV data for a row is validated.
         if($this->data['first_name']==''){
-            $data['first_name']='xxxxx';
+            $this->data['first_name']='xxxxx';
         }
         if($this->data['last_name']==''){
             $this->data['last_name']='xxxxx';

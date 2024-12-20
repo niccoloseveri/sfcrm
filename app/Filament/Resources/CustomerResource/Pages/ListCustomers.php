@@ -71,6 +71,6 @@ class ListCustomers extends ListRecords
 
     protected function paginateTableQuery(EloquentBuilder $query): Paginator|CursorPaginator
     {
-        return $query->simplePaginate(25);
+        return $query->simplePaginate(50);
     }
 }
