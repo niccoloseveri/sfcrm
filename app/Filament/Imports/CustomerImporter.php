@@ -63,6 +63,18 @@ class CustomerImporter extends Importer
         ];
     }
 
+    protected function beforeValidate(): void
+    {
+        // Runs before the CSV data for a row is validated.
+        if($this->data['first_name']==''){
+            $data['first_name']='xxxxx';
+        }
+        if($this->data['last_name']==''){
+            $this->data['last_name']='xxxxx';
+        }
+
+    }
+
     protected function beforeCreate(): void
     {
         if($this->data['nome_az']!='' || $this->data['nome_az']!=null ){
