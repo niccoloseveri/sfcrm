@@ -108,7 +108,11 @@ class AdminPanelProvider extends PanelProvider
                 BoltPlugin::make()
         ->extensions([
             \LaraZeus\Thunder\Extensions\Thunder::class,
-        ]),
+        ])
+        /*->boltModels([
+            'Tipo' => ['Ordinario', 'Straordinario'],
+        ])*/
+        ,
     ThunderPlugin::make()
 
             ]);
