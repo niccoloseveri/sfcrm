@@ -94,7 +94,7 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Impostazioni')
-                    ->icon('heroicon-o-cog-6-tooth')
+                    //->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
             ->authMiddleware([
