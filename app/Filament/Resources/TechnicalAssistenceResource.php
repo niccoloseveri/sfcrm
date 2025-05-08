@@ -58,6 +58,9 @@ class TechnicalAssistenceResource extends Resource
 
             Forms\Components\Toggle::make('is_completed')->label('Fatto?')
                 ->required(),
+
+                // This will make the section visible only on the edit page
+            Forms\Components\FileUpload::make('file_path')->label('Report intervento')->disk('s3')->visibility('private')
             ]);
     }
 
