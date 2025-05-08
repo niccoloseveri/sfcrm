@@ -31,7 +31,8 @@ return [
     'models' => [
         'Office' => \LaraZeus\Thunder\Models\Office::class,
         'Operations' => \LaraZeus\Thunder\Models\Operations::class,
-        'Ticket' => \LaraZeus\Thunder\Models\Ticket::class,
+        //'Ticket' => \LaraZeus\Thunder\Models\Ticket::class,
+        'Ticket' => \App\Models\Ticket::class, // Example: Custom Ticket model
         'TicketsStatus' => \LaraZeus\Thunder\Models\TicketsStatus::class,
         'Abilities' => \LaraZeus\Thunder\Enums\Abilities::class,
     ],

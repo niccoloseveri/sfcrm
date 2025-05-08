@@ -98,3 +98,14 @@
     - Installing PDF Package
     - Generating PDF
     - Displaying PDF in View Page
+
+
+## Lista TODO
+1. necessità di tenere traccia dei ticket con chat ecc..
+2. tutto su "richieste di assistenza"
+3. interventi di assistenza
+4. caricamento file per assistenti
+5. richieste assistenza relationmanager su utente
+
+
+

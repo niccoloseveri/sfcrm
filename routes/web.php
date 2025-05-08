@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PublicTicketController;
 use App\Livewire\AcceptInvitation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuotePdfController;
@@ -26,3 +27,7 @@ Route::middleware('signed')
 Route::middleware('signed')
     ->get('quotes/{quote}/pdf', QuotePdfController::class)
     ->name('quotes.pdf');
+
+Route::get('/ticket/create', [PublicTicketController::class, 'create']);
+Route::post('/ticket', [PublicTicketController::class, 'store']);
+Route::get('/ticket/view/{token}', [PublicTicketController::class, 'view'])->name('tickets.view');
