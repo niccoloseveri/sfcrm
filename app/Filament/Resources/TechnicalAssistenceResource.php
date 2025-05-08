@@ -60,7 +60,7 @@ class TechnicalAssistenceResource extends Resource
                 ->required(),
 
                 // This will make the section visible only on the edit page
-            Forms\Components\FileUpload::make('file_path')->label('Report intervento')->disk('s3')->visibility('private')
+            Forms\Components\FileUpload::make('report_path')->label('Report intervento')->disk('s3')->visibility('private')->openable()
             ]);
     }
 

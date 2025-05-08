@@ -18,6 +18,7 @@ class TechnicalAssistence extends Model
         'due_date',
         'due_time',
         'is_completed',
+        'report_path',
     ];
 
     protected $casts = [
