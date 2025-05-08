@@ -28,7 +28,7 @@ class TicketResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
-            Tables\Columns\TextColumn::make('ticket_number')->sortable()->searchable(),
+            Tables\Columns\TextColumn::make('ticket_no')->sortable()->searchable(),
             Tables\Columns\TextColumn::make('subject')->searchable(),
             Tables\Columns\TextColumn::make('email'),
             Tables\Columns\TextColumn::make('priority')->colors([
