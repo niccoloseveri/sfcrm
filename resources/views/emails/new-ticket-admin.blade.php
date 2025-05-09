@@ -3,7 +3,7 @@
     Di seguito i dati del Cliente:<br>
     Nome e Cognome: {{$ticket->subject}}<br>
     email: {{$ticket->email}}<br>
-    Link: {{route('filament.admin.resources.ticket.view', $ticket)}}
+    Link: <a href="{{route('filament.admin.resources.ticket.view', $ticket)}}" target="_blank">{{route('filament.admin.resources.ticket.view', $ticket)}}</a>
 
     {{ __("Se non aspettavi una mail da parte nostra o non ne conosci la provenienza, ingora pure il messaggio.") }}
 </x-mail::message>
