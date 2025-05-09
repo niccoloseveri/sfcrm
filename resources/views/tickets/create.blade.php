@@ -21,7 +21,7 @@
         <x-filament::input.wrapper>
             <x-filament::input.select name="priority" label="Priority" wire:model="priority" required>
                 <option value="bassa">Bassa</option>
-                <option value="normale" selected>Normale</option>
+                <option value="media" selected>Media</option>
                 <option value="alta">Alta</option>
             </x-filament::input.select>
         </x-filament::input.wrapper>

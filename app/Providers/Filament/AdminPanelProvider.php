@@ -87,7 +87,8 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label('Thunder')
                     //->icon('heroicon-o-cog-6-tooth')
-                    ->collapsed(),
+                    ->collapsed()
+                ,
                 NavigationGroup::make()
                     ->label('Bolt')
                     //->icon('heroicon-o-cog-6-tooth')
@@ -105,15 +106,15 @@ class AdminPanelProvider extends PanelProvider
                 \TomatoPHP\FilamentNotes\FilamentNotesPlugin::make(),
                 FilamentFullCalendarPlugin::make(),
                 FilamentUserActivityPlugin::make(),
-                BoltPlugin::make()
+                /*BoltPlugin::make()
         ->extensions([
             \LaraZeus\Thunder\Extensions\Thunder::class,
         ])
         /*->boltModels([
             'Tipo' => ['Ordinario', 'Straordinario'],
-        ])*/
-        ,
-    ThunderPlugin::make()
+        ])
+        ,*/
+    //ThunderPlugin::make()
 
             ]);
     }

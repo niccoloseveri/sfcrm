@@ -28,19 +28,19 @@ class TicketResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
-            Tables\Columns\TextColumn::make('ticket_no')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('subject')->searchable(),
-            Tables\Columns\TextColumn::make('email'),
-            Tables\Columns\TextColumn::make('priority')->colors([
-                'success' => 'low',
-                'warning' => 'medium',
-                'danger' => 'high',
-            ])->badge(),
+            Tables\Columns\TextColumn::make('ticket_no')->sortable()->searchable()->label('N. Ticket'),
+            Tables\Columns\TextColumn::make('subject')->searchable()->label('Cliente'),
+            Tables\Columns\TextColumn::make('email')->searchable()->label('Email'),
+            Tables\Columns\TextColumn::make('priority')->badge()->colors([
+                'success' => 'bassa',
+                'warning' => 'media',
+                'danger' => 'alta',
+            ])->sortable()->label('Priorità'),
             Tables\Columns\TextColumn::make('status')->colors([
-                'success' => 'open',
-                'secondary' => 'closed',
-            ])->badge(),
-            Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                'success' => 'APERTO',
+                'danger' => 'CHIUSO',
+            ])->badge()->sortable()->label('Stato'),
+            Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Creato il'),
         ])->filters([])
           ->actions([
               Tables\Actions\ViewAction::make(),

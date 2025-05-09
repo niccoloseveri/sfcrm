@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NewTicket;
+use App\Mail\NewTicketAdmin;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -26,6 +27,7 @@ class PublicTicketController extends Controller
         $ticket = Ticket::create($data);
 
         Mail::to($ticket->email)->send(new NewTicket($ticket));
+        Mail::to('niccoloseveri@gmail.com')->send(new NewTicketAdmin($ticket));
 
         return redirect()->route('tickets.view', $ticket->token);
     }
