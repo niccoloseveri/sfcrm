@@ -50,6 +50,7 @@ class ViewTicket extends ViewRecord
                 ->visible(fn ($record) => $record->status !== 'CHIUSO')
                 ->action(function (Ticket $record) {
                     $record->update(['status' => 'CHIUSO']);
+                    //Mail
                     //$this->notify('success', 'Ticket chiuso con successo');
                     Notification::make()
                     ->title('Ticket chiuso con successo')

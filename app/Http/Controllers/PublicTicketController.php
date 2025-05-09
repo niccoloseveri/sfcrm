@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\NewTicket;
 use App\Mail\NewTicketAdmin;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -25,9 +26,10 @@ class PublicTicketController extends Controller
         //dd('CIAO');
         $data=$request->request->all();
         $ticket = Ticket::create($data);
+        $mails=User::where('accepts_tickets', true)->get();
 
         Mail::to($ticket->email)->send(new NewTicket($ticket));
-        Mail::to('niccoloseveri@gmail.com')->send(new NewTicketAdmin($ticket));
+        Mail::to($mails)->send(new NewTicketAdmin($ticket));
 
         return redirect()->route('tickets.view', $ticket->token);
     }

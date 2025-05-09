@@ -31,6 +31,8 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'password',
         'role_id',
+        'accepts_tickets',
+        'accepts_new_customers',
     ];
 
     /**

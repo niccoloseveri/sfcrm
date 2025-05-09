@@ -46,6 +46,15 @@ class UserResource extends Resource
                     ->dehydrated(fn (?string $state): bool => filled($state))
                     ->required(fn (string $operation): bool => $operation === 'create')
                     ->maxLength(255),
+                Forms\Components\Toggle::make('accepts_tickets')->label('Accetta Mail Ticket')
+                    ->default(false)
+                    ->inline()
+                    ->required()
+                    ->columnSpan(2),
+                Forms\Components\Toggle::make('accepts_new_customers')->label('Accetta Mail Nuovi Clienti')
+                    ->default(false)
+                    ->inline()
+                    ->required(),
             ]);
     }
 
