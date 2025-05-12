@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\UserResource\RelationManagers;
+use Lab404\Impersonate\Impersonate;
+use STS\FilamentImpersonate\Tables\Actions\Impersonate as ActionsImpersonate;
 
 class UserResource extends Resource
 {
@@ -79,6 +81,8 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
+                ActionsImpersonate::make()//->visible(fn () => config('app.env') == 'local' ? true : false)
+                ,
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
