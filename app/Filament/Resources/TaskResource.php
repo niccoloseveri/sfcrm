@@ -46,7 +46,7 @@ class TaskResource extends Resource
                         if($record->is_azienda){
                             $r = $record->nome_az;
                         } else $r = $record->first_name . ' ' . $record->last_name;
-                        return $r;
+                        return $r != null ? $r : 'NONAME';
                     })
                     ->preload()
                     ->searchable(['first_name', 'last_name', 'nome_az'])

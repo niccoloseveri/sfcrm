@@ -106,15 +106,15 @@ class AdminPanelProvider extends PanelProvider
                 \TomatoPHP\FilamentNotes\FilamentNotesPlugin::make(),
                 FilamentFullCalendarPlugin::make(),
                 FilamentUserActivityPlugin::make(),
-                BoltPlugin::make()
-        ->extensions([
-            \LaraZeus\Thunder\Extensions\Thunder::class,
-        ]),
+        //        BoltPlugin::make()
+        //->extensions([
+        //    \LaraZeus\Thunder\Extensions\Thunder::class,
+        //]),
         /*->boltModels([
             'Tipo' => ['Ordinario', 'Straordinario'],
         ])
         ,*/
-    ThunderPlugin::make()
+    //ThunderPlugin::make()
 
             ]);
     }
