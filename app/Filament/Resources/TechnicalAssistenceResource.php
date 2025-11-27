@@ -6,6 +6,7 @@ use App\Filament\Resources\TechnicalAssistenceResource\Pages;
 use App\Filament\Resources\TechnicalAssistenceResource\RelationManagers;
 use App\Models\Customer;
 use App\Models\TechnicalAssistence;
+use Archilex\ToggleIconColumn\Columns\ToggleIconColumn;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -70,6 +71,11 @@ class TechnicalAssistenceResource extends Resource
         return $table
             ->columns([
                 //
+                ToggleIconColumn::make('is_completed')->label('Completo?')
+                ->sortable()
+            ->alignCenter()
+            ->onColor('success')
+            ->offColor('danger'),
                 Tables\Columns\TextColumn::make('due_date')->label('Data Appuntamento')
                         ->date()
                         ->sortable(),
