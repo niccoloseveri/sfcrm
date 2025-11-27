@@ -16,6 +16,7 @@ class Ticket extends Model
         'description',
         'ticket_no',
         'email',
+        'tel',
         'token',
         'status',
         'priority',

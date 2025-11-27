@@ -30,6 +30,7 @@ class TicketResource extends Resource
         return $table->columns([
             Tables\Columns\TextColumn::make('ticket_no')->sortable()->searchable()->label('N. Ticket'),
             Tables\Columns\TextColumn::make('subject')->searchable()->label('Cliente'),
+            Tables\Columns\TextColumn::make('tel')->searchable()->label('Telefono'),
             Tables\Columns\TextColumn::make('email')->searchable()->label('Email'),
             Tables\Columns\TextColumn::make('priority')->badge()->colors([
                 'success' => 'bassa',
@@ -50,6 +51,8 @@ class TicketResource extends Resource
               Tables\Actions\DeleteBulkAction::make(),
           ]);
     }
+
+
 
     public static function getRelations(): array
     {

@@ -12,6 +12,10 @@
         <x-filament::input.wrapper>
             <x-filament::input type="email" name="email" label="Your Email" wire:model="email" required />
         </x-filament::input.wrapper>
+        <label for="tel" class="block text-sm font-medium text-gray-700">Telefono:</label>
+        <x-filament::input.wrapper>
+            <x-filament::input type="tel" name="tel" label="Your Telephone" wire:model="tel" required />
+        </x-filament::input.wrapper>
         <label for="subject" class="block text-sm font-medium text-gray-700">Descrizione problematica:</label>
         <x-filament::input.wrapper>
             <x-filament::input type="text" name="description" wire:model="description" label="Description" required />
