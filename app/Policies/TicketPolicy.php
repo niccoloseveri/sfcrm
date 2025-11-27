@@ -13,6 +13,11 @@ class TicketPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->isAdmin();
+        $can=false;
+        if($user->isAdmin() || $user->isAssistente()){
+            $can=true;
+        }
+        return $can;
+
     }
 }

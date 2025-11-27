@@ -91,12 +91,13 @@ class TechnicalAssistenceResource extends Resource
                         })
                         ->searchable(['first_name', 'last_name'])
                         ->sortable(),
+                        Tables\Columns\TextColumn::make('description')->label('Descrizione')
+                        ->html(),
                     Tables\Columns\TextColumn::make('assistente.name')->label('Impiegato')
                         ->searchable()
                         ->sortable()
                         ->hidden(!auth()->user()->isAdmin()),
-                    Tables\Columns\TextColumn::make('description')->label('Descrizione')
-                        ->html(),
+
 
 
                     Tables\Columns\TextColumn::make('created_at')->label('Creato')
